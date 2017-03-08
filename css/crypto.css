@@ -2,11 +2,66 @@
  * CSS for CryptoBase project.
  */
 
+/* Page styling */
+body {
+	/*background-color:  #303030;*/
+}
+
 /* Font styling */
 h1 {
 	font-family: 'Lato', sans-serif;
 	font-weight: 300;
-	font-size: 100px;
-	margin-left: -10px;
-	color: #FFA85C;
+	font-size: 200px;
+	color: #3F3F3F;
 }
+
+/* Social icon styles
+a.quora-icon {
+	color: #D2322E;
+	padding-right: 15px;
+}
+
+a.quora-icon:hover {
+	color: #FFA85C;
+	padding-right: 15px;
+}
+
+a.medium-icon {
+	color: #00D485;
+	padding-right: 15px;
+}
+
+a.medium-icon:hover {
+	color: #FFA85C;
+	padding-right: 15px;
+}
+
+a.linkedin-icon {
+	color: #008DD6;
+	padding-right: 15px;
+}
+
+a.linkedin-icon:hover {
+	color: #FFA85C;
+	padding-right: 15px;
+}
+
+a.github-icon {
+	color: #fff;
+	padding-right: 15px;
+}
+
+a.github-icon:hover {
+	color: #FFA85C;
+	padding-right: 15px;
+}
+*/
+
+
+
+
+
+
+
+
+
