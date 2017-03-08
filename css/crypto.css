@@ -1,0 +1,12 @@
+/*
+ * CSS for CryptoBase project.
+ */
+
+/* Font styling */
+h1 {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	font-size: 100px;
+	margin-left: -10px;
+	color: #FFA85C;
+}
