@@ -7,6 +7,16 @@ body {
 	/*background-color:  #303030;*/
 }
 
+/* Page Header */
+#masthead {
+	min-height: 40vh;
+	position: relative;
+	margin: 0px;
+	padding-top: 34px;
+	padding-bottom: 42px;
+	color: #fff;
+}
+
 /* Font styling */
 h1 {
 	font-family: 'Lato', sans-serif;
