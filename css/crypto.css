@@ -8,18 +8,6 @@ body {
 }
 
 /* Page Header */
-#masthead {
-	min-height: 40vh;
-	position: relative;
-	margin: 0px;
-	padding-top: 34px;
-	padding-bottom: 42px;
-	color: #000000;
-}
-
-.gradient {
-
-}
 
 /* Font styling */
 h1 {
