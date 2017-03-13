@@ -14,7 +14,11 @@ body {
 	margin: 0px;
 	padding-top: 34px;
 	padding-bottom: 42px;
-	color: #fff;
+	color: #000000;
+}
+
+.gradient {
+
 }
 
 /* Font styling */
