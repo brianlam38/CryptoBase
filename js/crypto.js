@@ -46,7 +46,7 @@ canvas.height = 500;
 mainImage = new Image();            // main img object
 mainImage.ready = false;            // default = false
 mainImage.onload = checkReady;      // image loads -> does rdy check -> sets rdy = true -> launch game rendering fn
-mainImage.src = "images/pac.png";
+mainImage.src = "/CryptoBase/images/pac.png";
 
 /**
  * Interactions
