@@ -8,7 +8,7 @@
  */
 /* default starting score */
 var score = 0;
-var gscore = 0;
+// add a time var? For fail game countdown
 var ghost = false;
 
 /* player object */
@@ -51,6 +51,8 @@ mainImage.src = "/CryptoBase/images/pac.png";
 /**
  * Interactions
  */
+/* CAESAR CIPHER EVENT LISTENERS */
+
 /* setup event listener: press a key, return an ascii value for the char key */
 var keyclick = {};
 document.addEventListener("keydown", function(event) { // pulling in DOM, adding different events
