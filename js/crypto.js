@@ -39,14 +39,14 @@ var canvas = document.createElement("canvas");          // Doing same as above e
 var context = canvas.getContext("2d");                  // to manipulate with ctx
 //context.fillText("helloworld", 10, 150);                // ??? possibly remove
 document.body.appendChild(canvas);                      // append canvas object to body
-canvas.width = 900;
-canvas.height = 600;
+canvas.width = 800;
+canvas.height = 500;
 
 /* Image load */
 mainImage = new Image();            // main img object
 mainImage.ready = false;            // default = false
 mainImage.onload = checkReady;      // image loads -> does rdy check -> sets rdy = true -> launch game rendering fn
-mainImage.src = "pac.png";
+mainImage.src = "images/pac.png";
 
 /**
  * Interactions
@@ -107,6 +107,11 @@ function myNum(n) {
 
 /**
  * Game rendering
+ *
+ * 1. Main render execution
+ * 2. Main render function
+ *
+ * POSSIBLY SEPARATE RENDERING OF DIFFERENT OBJECTS???
  */
 function playGame() {
     render();
