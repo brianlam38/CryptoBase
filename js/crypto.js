@@ -4,21 +4,41 @@
  */
 
 /**
- *  Player and data
+ * Canvas
  */
-/* default starting score */
-var score = 0;
-// add a time var? For fail game countdown
+/* Creating canvas */
+var canvas = document.createElement("canvas");          // Doing same as above except hooking it on DOM
+var context = canvas.getContext("2d");                  // to manipulate with ctx
+//context.fillText("helloworld", 10, 150);                // ??? possibly remove
+document.body.appendChild(canvas);                      // append canvas object to body
+canvas.width = 800;
+canvas.height = 600;
+
+/**
+ *  Objects and data
+ *
+ *  Instead of using PICTURES OF CHARACTERS, you should use the canvas.fillText(text,x,y,maxWidth) function
+ *  Change text colour = light green
+ */
+var score = 0;          // player score
+var gameOverCount = 0;  // countdown timer
 var ghost = false;
 
-/* player object */
-var player = {
+var stringInput = "nothing";    // String input that will be parsed by fillText() on canvas
+                                // Need to write function to:
+                                //      Separate string by char
+                                //      Parse the chars as output into canvas
+                                // Possibly store strings into array
+
+
+/* alphabet object */
+var A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Zs = {
     x:50,
     y:100,
     pacmouth:320,
     pacdir:0,
     psize:30,
-    speed:10
+    speed:10;
 };
 
 /* enemy object */
@@ -31,70 +51,20 @@ var enemy = {
     diry: 0
 };
 
-/**
- * Canvas / image creation
- */
-/* Creating canvas */
-var canvas = document.createElement("canvas");          // Doing same as above except hooking it on DOM
-var context = canvas.getContext("2d");                  // to manipulate with ctx
-//context.fillText("helloworld", 10, 150);                // ??? possibly remove
-document.body.appendChild(canvas);                      // append canvas object to body
-canvas.width = 800;
-canvas.height = 500;
 
-/* Image load */
+/**
+ * Load image files
+ */
+// Main computer terminal background
 mainImage = new Image();            // main img object
 mainImage.ready = false;            // default = false
 mainImage.onload = checkReady;      // image loads -> does rdy check -> sets rdy = true -> launch game rendering fn
 mainImage.src = "/CryptoBase/images/pac.png";
 
-/**
- * Interactions
- */
-/* CAESAR CIPHER EVENT LISTENERS */
-
-/* setup event listener: press a key, return an ascii value for the char key */
-var keyclick = {};
-document.addEventListener("keydown", function(event) { // pulling in DOM, adding different events
-    keyclick[event.keyCode] = true;                    // whenever we press a key, it will return ascii char for key
-    console.log(keyclick);
-    move(keyclick);
-}, false);
-
-/* setup event listener: lift up key, lose the value */
-document.addEventListener("keyup", function(event) {
-    delete keyclick[event.keyCode];
-}, false);
-
-/* moving things around the screen */
-function move(keyclick) {
-    if (37 in keyclick) {player.x -= player.speed; player.pacdir = 64;}   // left
-    if (38 in keyclick) {player.y -= player.speed; player.pacdir = 96;}   // up
-    if (39 in keyclick) {player.x += player.speed; player.pacdir = 0;}    // right
-    if (40 in keyclick) {player.y += player.speed; player.pacdir = 32;}   // down
-
-    // allowing player to wrap around to other side if they cross border
-    if (player.x >= (canvas.width - 32)) {
-        player.x = 0;
-    }
-    if (player.y >= (canvas.height - 32)) {
-        player.y = 0;
-    }
-    if (player.x < 0) {
-        player.x = (canvas.width - 32);
-    }
-    if (player.y < 0) {
-        player.y = (canvas.height - 32);
-    }
-    // everytime pacman moves, mouth opens and closes (uses 352/320 spot on pac.png)
-    if (player.pacmouth == 320) {
-        player.pacmouth = 352;
-    } else {
-        player.pacmouth = 320;
-    }
-
-    render();
-}
+// A-Z alphabet chars
+alphabet = new Image();
+alphabet.ready = false;
+alphabet.onload = checkReady;
 
 /* ready check for images being loaded */
 function checkReady() {
@@ -102,18 +72,18 @@ function checkReady() {
     playGame();
 }
 
-// returning a rand number (set for a random ghost)
-function myNum(n) {
-    return Math.floor(Math.random() * n);
-}
-
 /**
  * Game rendering
  *
- * 1. Main render execution
- * 2. Main render function
+ * POSSIBLE SEPARATE RENDERING DEPENDING ON GAMESTATE
+ * STATE 1: Before start game
+ * STATE 2: Instructions rendering
+ * STATE 3: Game start
  *
- * POSSIBLY SEPARATE RENDERING OF DIFFERENT OBJECTS???
+ * OTHER STATES
+ * Game -> Restart / replay = STATE 3
+ * Game -> Home = STATE 1
+ * Instructions -> Home screen = STATE 1
  */
 function playGame() {
     render();
@@ -178,7 +148,58 @@ function render() {
     // (additional params to "crop" image for usage)
 }
 
+/**
+ * Interactions
+ */
+/* CAESAR CIPHER EVENT LISTENERS */
 
+// returning a rand number (set for a random ghost)
+function myNum(n) {
+    return Math.floor(Math.random() * n);
+}
+
+/* setup event listener: press a key, return an ascii value for the char key */
+var keyclick = {};
+document.addEventListener("keydown", function(event) { // pulling in DOM, adding different events
+    keyclick[event.keyCode] = true;                    // whenever we press a key, it will return ascii char for key
+    console.log(keyclick);
+    move(keyclick);
+}, false);
+
+/* setup event listener: lift up key, lose the value */
+document.addEventListener("keyup", function(event) {
+    delete keyclick[event.keyCode];
+}, false);
+
+/* moving things around the screen */
+function move(keyclick) {
+    if (37 in keyclick) {player.x -= player.speed; player.pacdir = 64;}   // left
+    if (38 in keyclick) {player.y -= player.speed; player.pacdir = 96;}   // up
+    if (39 in keyclick) {player.x += player.speed; player.pacdir = 0;}    // right
+    if (40 in keyclick) {player.y += player.speed; player.pacdir = 32;}   // down
+
+    // allowing player to wrap around to other side if they cross border
+    if (player.x >= (canvas.width - 32)) {
+        player.x = 0;
+    }
+    if (player.y >= (canvas.height - 32)) {
+        player.y = 0;
+    }
+    if (player.x < 0) {
+        player.x = (canvas.width - 32);
+    }
+    if (player.y < 0) {
+        player.y = (canvas.height - 32);
+    }
+    // everytime pacman moves, mouth opens and closes (uses 352/320 spot on pac.png)
+    if (player.pacmouth == 320) {
+        player.pacmouth = 352;
+    } else {
+        player.pacmouth = 320;
+    }
+
+    render();
+}
 
 
 
