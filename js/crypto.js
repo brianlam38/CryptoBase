@@ -4,6 +4,25 @@
  */
 
 /**
+ * IDEAS
+ *
+ * Player can fill in text box below each char object.
+ * They have an X amount of chances to check their answer.
+ * - Incorrect text boxes will have a red border
+ * - Correct text boxes will have a green border
+ * - Unfilled text boxes will remain neutral coloured
+ * If changes go to zero, they cannot check their answer anymore.
+ * Once they click the SUBMIT button, they should have the correct decrypted key
+ * or else the alarm will be triggered and they get caught.
+ *
+ * If text-input is too difficult, treat each char .png as an object.
+ * The player may click on each char of the encrypted text, then press a keyboard
+ * letter to enter in what they think is the decrypted char.
+ * Once pressed, the game engine will render their choice directly below the
+ * encrypted char.
+ */
+
+/**
  * Canvas
  */
 /* Creating canvas */
@@ -20,25 +39,43 @@ canvas.height = 600;
  *  Instead of using PICTURES OF CHARACTERS, you should use the canvas.fillText(text,x,y,maxWidth) function
  *  Change text colour = light green
  */
+
 var score = 0;          // player score
 var gameOverCount = 0;  // countdown timer
 var ghost = false;
 
-var stringInput = "nothing";    // String input that will be parsed by fillText() on canvas
+var inputString = "nothing";    // String input that will be parsed by fillText() on canvas
                                 // Need to write function to:
                                 //      Separate string by char
                                 //      Parse the chars as output into canvas
-                                // Possibly store strings into array
+                                // While !endOfString
+                                //      encryptChar(inputString);       // Encrypt char-by-char
+                                //      render char onto screen         // fillText(char,x,y,width)
 
+/**
+ * Alphabet positioning
+ *
+ * Possibly set locations for each char using XY Coords
+ * X = row #
+ * Y = column #
+ *
+ * Example:
+ *    Y1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+ * X1  T H I S   I S   A N     E N C R Y P T E D
+ * X2  M E S S A G E .
+ * X3
+ */
 
-/* alphabet object */
-var A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Zs = {
+var column = 0;
+var row = 0;
+
+/* alphabet object: may be redundant as you can just use canvas.fillText() */
+var A = {
     x:50,
     y:100,
     pacmouth:320,
     pacdir:0,
-    psize:30,
-    speed:10;
+    charSize:30,
 };
 
 /* enemy object */
