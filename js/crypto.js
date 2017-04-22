@@ -23,11 +23,28 @@
  */
 
 /**
+ * GAME IDEA
+ *
+ * Tug of war crypto challenge.
+ *
+ * Player fights a hacker by solving substitution cipher.
+ * Player is given a certain amount of time to solve the cipher before the hacker breaks into their computer.
+ * For each character that is correctly decrypted, they get +time.
+ */
+
+/**
+ * CHAR RENDERING IDEA
+ *
+ * Create a series of rectangular boxes first, to represent where each A-Z image object will be placed
+ * As the player clicks into each box, they can press a key to insert A-Z image object into the rectangular box.
+ */
+
+/**
  * Canvas
  */
 /* Creating canvas */
 var canvas = document.createElement("canvas");          // Doing same as above except hooking it on DOM
-var context = canvas.getContext("2d");                  // to manipulate with ctx
+var context = canvas.getContext("2d");                  // Main drawing context (static use)
 document.body.appendChild(canvas);                      // append canvas object to body
 canvas.width = 800;
 canvas.height = 600;
@@ -72,6 +89,7 @@ var gameOverCount = 0;  // countdown timer
 var A = {
     x:50,
     y:100,
+    // set ASCII value
 };
 
 /**
@@ -79,12 +97,16 @@ var A = {
  */
 // Main computer terminal background
 mainImage = new Image();            // main img object
-//mainImage.ready = false;            // default = false
+textImage = new Image();            // A-Z img object
+mainImage.ready = false;            // default = false
+textImage.ready = false;
 mainImage.onload = checkReady;      // image loads
                                     // -> does rdy check
                                     // -> sets rdy = true
                                     // -> launch game rendering fn
+textImage.onload = checkReady;
 mainImage.src = "/CryptoBase/images/canvas1.png";
+textImage.src = "/CryptoBase/images/canvasText.png";
 
 // A-Z alphabet chars
 //alphabet = new Image();
@@ -123,13 +145,40 @@ function render() {
     // renders canvas
     context.drawImage(mainImage, 0, 0, 800, 600);
 
-    context.font = "normal 16px Verdana";
+    // set text styling
+    context.fillStyle = "white";
+    context.font = "lighter 16px Verdana";
+
+    // render Score + Time Remaining
     context.fillText("Score: " + score, 280, 40);
     context.fillText("Time remaining: " + gameOverCount, 400, 40);
+
+    // render story
+    context.fillText("SYSTEM ALERT:", 25, 120);
+    context.fillText("You are being hacked! Decrypt the string into " +
+                    "plaintext before your system is broken into.", 25, 150);
+
+    // render instructions
+    context.fillText("INSTRUCTIONS", 315, 250);
+
+
+    // Render start game button.
+
+    // Once start game is clicked on, run secondary function to render
+    // the tug-o-war bar and start the game.
 }
 
 /**
  * Interactions
  */
-/* CAESAR CIPHER EVENT LISTENERS */
+
+/* Event listener: press a key, return an ascii value for the char key */
+
+var keyclick = {};
+document.addEventListener("keydown", function(event) { // pulling in DOM, adding different events
+    keyclick[event.keyCode] = true;                    // whenever we press a key, it will return ascii char for key
+    console.log(keyclick);
+    move(keyclick);
+}, false);
+
 
