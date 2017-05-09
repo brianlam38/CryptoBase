@@ -1,5 +1,5 @@
 /**
- * Caesar Cipher Puzzle
+ * Caesar Cipher Tug-O-War
  * @author Brian Lam
  */
 
@@ -134,14 +134,15 @@ function checkReady() {
  * Instructions -> Home screen = STATE 1
  */
 function playGame() {
-    render();
+    // Render start game
+    renderStart();
     console.log();
     requestAnimationFrame(playGame);            // continuously render the game
                                                 // need to continually loop functions to run games
 }
 
 /* renders game, where we output content in canvas */
-function render() {
+function renderStart() {
     // renders canvas
     context.drawImage(mainImage, 0, 0, 800, 600);
 
@@ -166,6 +167,8 @@ function render() {
 
     // Once start game is clicked on, run secondary function to render
     // the tug-o-war bar and start the game.
+
+    // Once start game button is clicked, break out of renderStart()
 }
 
 /**
