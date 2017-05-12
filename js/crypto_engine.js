@@ -21,9 +21,9 @@
  */
 
 // store an array of plaintext strings
-var plaintext = ["This is a test message lol",
-                 "What is a substitution cipher",
-                 "Stealing company information"];
+var plaintext = ["THIS IS A TEST MESSAGE LOL",
+                 "SUBSTITUTION CIPHERS ARE COOL",
+                 "STEALING COMPANY INFORMATION"];
 
 
 /**
@@ -35,10 +35,11 @@ function getEncryptedStr() {
     // choose random string from dictionary
     var chooseStr = Math.floor(Math.random() * 100) % 3;
     var plaintextStr = plaintext[chooseStr];
+    console.log("PLAINTEXT = " + plaintextStr);
 
     // generate random shift value between 1-26
     var shiftVal = (Math.floor(Math.random() * 100) + 1) % 26;
-    console.log(shiftVal);
+    console.log("SHIFT VALUE = " + shiftVal);
 
     var encrypted = "";
     var charCode = 0;
@@ -46,15 +47,18 @@ function getEncryptedStr() {
 
     // convert plaintext -> encrypted
     for (var i = 0; i < len; i++) {
-        charCode = plaintextStr.charCodeAt(i) + shiftVal;
+        // add space to encrypted
+        if (plaintextStr.charAt(i) == " ") {
+            encrypted += plaintextStr.charAt(i);
+            continue;
+        }
+        charCode = (plaintextStr.charCodeAt(i) + shiftVal) % 26 + 65;
+        console.log("CHARCODE = " + charCode);
         encrypted += String.fromCharCode(charCode);
     }
 
-    // mark as completed
-    completed = true;
-
     // return encrypted string
-    console.log(encrypted);
+    console.log("ENCRYPTED STRING = " + encrypted);
     return encrypted;
 }
 
@@ -175,9 +179,9 @@ var completed = false;
 // #66C88F = colour of CORRECTLY decrypted char
 function renderEncrypted(encrypted) {
     var box_x = 50;
-    var box_y = 150;
+    var box_y = 180;
     var char_x = 53;
-    var char_y = 175;
+    var char_y = 205;
 
     // render encrypted string
     var len = encrypted.length;
@@ -200,9 +204,11 @@ function renderEncrypted(encrypted) {
             box_y += 50;
             char_y += 50;
             box_x = 50;
-            char_x = 50;
+            char_x = 53;
         }
     }
+    // mark as completed
+    completed = true;
 }
 
 var encrypted = "";
@@ -210,13 +216,13 @@ function playGame() {
     // render static board
     renderBoard();
 
-    // get encrypted string
+    // generate encrypted string and render
     if (!completed) {
         encrypted = getEncryptedStr();
+        requestAnimationFrame(renderEncrypted(encrypted));
     }
-
-    // render encrypted string
-    renderEncrypted(encrypted);
+    // stop generating encrypted string
+    cancelAnimationFrame(renderEncrypted);
 
     // continue or game over
     timeLimit--;
