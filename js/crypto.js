@@ -184,4 +184,3 @@ document.addEventListener("keydown", function(event) { // pulling in DOM, adding
     move(keyclick);
 }, false);
 
-
