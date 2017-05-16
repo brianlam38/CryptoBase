@@ -75,7 +75,15 @@ var defaultScore = 0;                // score
 var defaultTimeLimit = 300;          // 5*60 = 300 seconds countdown timer
 var score = defaultScore;
 var timeLimit = defaultTimeLimit;
+
 var startButton = {                  // Button object with boundaries
+    x:340,
+    y:530,
+    width:100,
+    height:40
+};
+
+var mainMenuButton = {                  // Button object with boundaries
     x:340,
     y:530,
     width:100,
@@ -122,6 +130,8 @@ function checkReady() {
 function resetData() {
     score = defaultScore;
     timeLimit = defaultTimeLimit;
+    encryptComplete = false;
+    gameState = 0;
 }
 
 function menu() {
@@ -175,17 +185,18 @@ function renderBoard() {
     context.fillText("MAIN MENU", 650, 40);
 }
 
-var completed = false;
+var encryptComplete = false;
 // #66C88F = colour of CORRECTLY decrypted char
 function renderEncrypted(encrypted) {
     var box_x = 50;
-    var box_y = 180;
+    var box_y = 250; //180
     var char_x = 53;
-    var char_y = 205;
+    var char_y = 235;
 
     // render encrypted string
     var len = encrypted.length;
     for (var i = 0; i < len; i++) {
+        console.log("render encrypted string");
         console.log(encrypted.charAt(i));
         // render char
         context.fillStyle = "white";
@@ -201,14 +212,14 @@ function renderEncrypted(encrypted) {
         char_x += 30;
         // newline if over canvas bounds
         if (box_x > 700) {
-            box_y += 50;
-            char_y += 50;
+            box_y += 100;
+            char_y += 100;
             box_x = 50;
             char_x = 53;
         }
     }
     // mark as completed
-    completed = true;
+    encryptComplete = true;
 }
 
 var encrypted = "";
@@ -217,7 +228,7 @@ function playGame() {
     renderBoard();
 
     // generate encrypted string and render
-    if (!completed) {
+    if (!encryptComplete) {
         encrypted = getEncryptedStr();
         requestAnimationFrame(renderEncrypted(encrypted));
     }
@@ -251,9 +262,9 @@ function getMousePos(canvas, event) {
 }
 
 // check if mouse is inside button
-function isInside(pos, startButton){
-    return pos.x > startButton.x && pos.x < startButton.x+startButton.width
-        && pos.y < startButton.y+startButton.height && pos.y > startButton.y
+function isInside(pos, button){
+    return pos.x > button.x && pos.x < button.x+button.width
+        && pos.y < button.y+button.height && pos.y > button.y
 }
 
 // start game button event listener
@@ -266,12 +277,12 @@ canvas.addEventListener('click', function(event) {
     } else {
         console.log('clicked outside start game');
     }
-    /* main menu button
+    // main menu button
     if (isInside(mousePos, mainMenuButton) && (gameState == 1)) {
         console.log('clicked main menu button');
         gameState = 1;
         menu();
     } else {
         console.log('clicked outside main menu button');
-    }*/
+    }
 }, false);
