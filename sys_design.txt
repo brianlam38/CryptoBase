@@ -3,54 +3,41 @@ You are a hacker who wants to steal documents from a computer.
 The computer is currently locked and you need to solve the cipher before you can unlock it.
 There is a countdown-timer for solving the cipher. If it goes to zero, you will be locked out permanently and lose.
 
-Objects
-Computer Terminal
-Image of a simplified Computer Terminal
-Similar to what Fallout 4 uses, with a basic computer border with all interactions happening inside.
-This will be static. and wont move
-(OPTIONAL) Possibly add some flashing etc to make it more "life-like"
-A-Z Characters
-Images of alphabet A-Z.
-Each individual character will be used to form the encrypted message
-Var name = alphabet char
-Text-box input
-Text-box inputs for the player to enter characters
-NOTE: # of text-boxes will have to match how many characters are in the encrypted message, so there needs to be a way to link the two together, so that #EncryptedChars generated = #Text-boxes.
-Hint button
-A basic button which can be clicked on by the user
-If clicked on, it will output the SHIFT VALUE so that the user knows how many shifts are needed for each char to win
-Start game button
-A button for the user to start the game
-Once clicked on, it will load a new instance of the game.
+/**
+ * IDEAS
+ *
+ * Player can fill in text box below each char object.
+ * They have an X amount of chances to check their answer.
+ * - Incorrect text boxes will have a red border
+ * - Correct text boxes will have a green border
+ * - Unfilled text boxes will remain neutral coloured
+ * If changes go to zero, they cannot check their answer anymore.
+ * Once they click the SUBMIT button, they should have the correct decrypted key
+ * or else the alarm will be triggered and they get caught.
+ *
+ * If text-input is too difficult, treat each char .png as an object.
+ * The player may click on each char of the encrypted text, then press a keyboard
+ * letter to enter in what they think is the decrypted char.
+ * Once pressed, the game engine will render their choice directly below the
+ * encrypted char.
+ */
 
-Try again button
-A button for the user to re-start the game / refresh once they failed or completed the game.
-This will load a new instance of the game, i.e. a different shift value and different encrypted string
+/**
+ * GAME IDEA
+ *
+ * Tug of war crypto challenge.
+ *
+ * Player fights a hacker by solving substitution cipher.
+ * Player is given a certain amount of time to solve the cipher before the hacker breaks into their computer.
+ * For each character that is correctly decrypted, they get +time.
+ */
 
-Functionality
-
-Encryption / Character Shifting
-When the player clicks either: START GAME or PLAY AGAIN
-The game engine will choose a random shift value (1-26)
-Shift of 0 would be pointless as that = the same original message
-The game engine will also pull from a dictionary of strings (created by me), translate each char in the string (sans whitespace) into an object which will be rendered on screen.
-Using the chosen string / shift value, the game will render an encrypted message into the game canvas.
-Decryption / Player tex-input
-Once the encrypted string has been rendered in the game canvas:
-The countdown will start
-The input text-boxes will appear for the user to interact with
-The user can enter only chars from A-Z otherwise it will count as incorrect
-Security: User can only enter 1 character into the text-box, not more than 1
-Need to figure out a way for the game engine to read all the separate text box characters as one single string, so that it can determine if the player has decrypted the message successfully.
-Probably in each separate char, concatenate the chars to become one string (however, vulnerable to hacking)
-OR
-Scan through each integer separately and validate if the single char has the correct shift
-Hints
-If the timer has reached a certain #seconds, a "Hint" box will appear.
-If the player clicks on the Hint box, it will tell them how many shifts they need on each char to decrypt the message.
-Possible issues
-If the string is too long, how do we render the encrypted objects so that it wraps around to the next line rather than go off-screen?
-Same applies for the text-input as the text-input boxes should appear directly below the encrypted char images.
+/**
+ * CHAR RENDERING IDEA
+ *
+ * Create a series of rectangular boxes first, to represent where each A-Z image object will be placed
+ * As the player clicks into each box, they can press a key to insert A-Z image object into the rectangular box.
+ */
 
 Additional Functionality
 When the timer reaches a certain #seconds, there will be a flashing red border to indicate that the time is nearly up.
