@@ -96,13 +96,13 @@ function getMousePos(canvas, event) {
     };
 }
 
-// check if mouse is inside button
-function isInside(pos, button){
+/** check if mouse is inside button */
+function isInside(pos, button) {
     return pos.x > button.x && pos.x < button.x+button.width
         && pos.y < button.y+button.height && pos.y > button.y
 }
 
-// start game button event listener
+/** game button event listeners **/
 canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(canvas, event);
     // start game button
@@ -121,5 +121,14 @@ canvas.addEventListener('click', function(event) {
         renderMenu();
     } else {
         console.log('clicked outside main menu button');
+    }
+}, false);
+
+/** string decryption event listeners **/
+str_canvas.addEventListener('click', function(event) {
+    var mousePos = getMousePos(str_canvas, event);
+    // check if player clicked in char box
+    if (isInside(mousePos, startBtn) && (gameState == 0)) {
+        // do suff
     }
 }, false);
