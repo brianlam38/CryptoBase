@@ -78,34 +78,6 @@ var menuBtn = {                  // Button object with boundaries
     height: 40
 };
 
-/**
- * GAME CANVAS SETUP
- *
- * Create canvas, append to HTML body, set width / height.
- */
-// create canvas, attach to DOM
-var canvas = document.getElementById("menu");
-var context = canvas.getContext("2d");
-//document.body.appendChild(canvas);
-//canvas.width = 800;
-//canvas.height = 600;
-
-// load image files
-mainImage = new Image();
-textImage = new Image();
-mainImage.ready = false;
-textImage.ready = false;
-mainImage.onload = checkReady;  // .onload executes a script after page loads
-textImage.onload = checkReady;
-mainImage.src = "/CryptoBase/images/canvas1.png";
-textImage.src = "/CryptoBase/images/canvasText.png";
-
-/** Performs ready check for image assets then loads game menu. */
-function checkReady() {
-    this.ready = true;
-    menu();
-}
-
 /** Renders start menu intro, instructions and start game button. */
 function resetData() {
     score = defaultScore;
@@ -137,7 +109,7 @@ canvas.addEventListener('click', function(event) {
     if (isInside(mousePos, startBtn) && (gameState == 0)) {
         console.log('clicked start game');
         encrypted = getEncryptedStr();
-        preRender(encrypted);
+        renderString(encrypted);
         playGame();
     } else {
         console.log('clicked outside start game');
@@ -146,7 +118,7 @@ canvas.addEventListener('click', function(event) {
     if (isInside(mousePos, menuBtn) && (gameState == 1)) {
         console.log('clicked main menu button');
         gameState = 1;
-        menu();
+        renderMenu();
     } else {
         console.log('clicked outside main menu button');
     }

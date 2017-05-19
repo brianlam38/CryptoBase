@@ -1,29 +1,59 @@
 /**
- * Renderer script for the game.
+ * GAME CANVAS SETUP
+ *
+ * Create canvas, append to HTML body, set width / height.
  */
+// create canvas
+var canvas = document.getElementById("menu");
+var str_canvas = document.getElementById("str_canvas");
+// create canvas ctx
+var context = canvas.getContext("2d");
+var str_context = str_canvas.getContext("2d");
 
+// load image files
+mainImage = new Image();
+textImage = new Image();
+mainImage.ready = false;
+textImage.ready = false;
+mainImage.onload = checkReady;  // .onload executes a script after page loads
+textImage.onload = checkReady;
+mainImage.src = "/CryptoBase/images/canvas1.png";
+textImage.src = "/CryptoBase/images/canvasText.png";
 
-// CANVAS ORDER
+/** Performs ready check for image assets then runs main render loop */
+function checkReady() {
+    this.ready = true;
+    renderMenu();
+}
+
+/** IMPROVED RENDER FUNCTION -> Upgrade to this later.
+ *
+ * Canvas order
 // 0. Menu
 // 1. Game board
 // 2. Encrypted string
 function render() {
 
     // render menu
+    renderMenu();
 
     // if start button is clicked
         // render game board
         // render encrypted string
+    if (!encryptComplete) {
+        encrypted = getEncryptedStr();
+    }
 
     // requestAnimationFrame(render)
 }
+ **/
 
 /**
  * MENU RENDER
  *
  * Renders the main menu, instruction text and the start game button.
  */
-function menu() {
+function renderMenu() {
     // reset values from prev game instances
     resetData();
 
@@ -52,7 +82,7 @@ function menu() {
  *
  * Continually updates the state of the game as the player makes changes.
  */
-function renderBoard() {
+function renderGame() {
     // render canvas
     context.drawImage(mainImage, 0, 0, 800, 600);
 
@@ -96,15 +126,10 @@ var bPos_y = {
 /**
  * renderEncrypted renders a pre-encrypted text to the canvas.
  */
-var str_canvas = document.getElementById("str_canvas");
-var str_context = str_canvas.getContext("2d");
-//document.body.appendChild(str_canvas);
-//str_canvas.width = 800;
-//str_canvas.height = 600;
 
 var row = 0;
 var encryptComplete = false;
-function preRender(encrypted) {
+function renderString(encrypted) {
     console.log("first time render");
     // style text
     str_context.fillStyle = "white";
@@ -136,24 +161,38 @@ function playGame() {
         console.log("generated encrypted string");
         encrypted = getEncryptedStr();
         console.log("pre-rendering string and boxes");
-        preRender(encrypted);
+        renderString(encrypted);
     }
 
     // render encrypted string and input boxes onto board
     console.log("drawing pre-rendered board");
     str_context.drawImage(str_canvas, 0, 0);
+    // set string canvas as top layer
+    document.getElementById('menu').style.zIndex = 0;
+    document.getElementById('str_canvas').style.zIndex = 1;
 
     // render static board
-    renderBoard();
+    renderGame();
 
     // continue or game over
     timeLimit--;
     if (timeLimit == -1) {
         cancelAnimationFrame(playGame);
+        // set gameState = menu
         gameState = 0;
-        //menu();
+        // set menu canvas as top layer
+        document.getElementById('menu').style.zIndex = 1;
+        document.getElementById('str_canvas').style.zIndex = 0;
+        // clear previous render
+        clearCanvas();
+        renderMenu();
     } else {
-        gameState = 1;
         requestAnimationFrame(playGame);
     }
+}
+
+/** Clears all canvases to prevent overlaps **/
+function clearCanvas() {
+    str_context.clearRect(0, 0, canvas.width, canvas.height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
 }
