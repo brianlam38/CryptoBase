@@ -26,7 +26,6 @@ var plaintext = ["THIS IS A TEST MESSAGE LOL",
 /**
  * Takes in a string value, encrypts it with a shift cipher
  * then adds it to the encrypted variable to be used in-game.
- * @param str is plaintext string
  */
 function getEncryptedStr() {
     // choose random string from dictionary

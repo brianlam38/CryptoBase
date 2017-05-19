@@ -116,12 +116,12 @@ function preRender(encrypted) {
 var encrypted = "";
 function playGame() {
     // generate encrypted string and render
-    /* if (!encryptComplete) {
+    if (!encryptComplete) {
         console.log("generated encrypted string");
         encrypted = getEncryptedStr();
         console.log("pre-rendering string and boxes");
         preRender(encrypted);
-    } */
+    }
 
     // render encrypted string and input boxes onto board
     console.log("drawing pre-rendered board");
