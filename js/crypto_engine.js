@@ -16,10 +16,7 @@
 // If too difficult to hashmap whole string, hashmap each individual char. If all chars hashmap != null
 // then initiate end game state.
 
-/**
- * ENCRYPTION
- */
-
+/** Hardcoded plaintext */
 // store an array of plaintext strings
 var plaintext = ["THIS IS A TEST MESSAGE LOL",
                  "SUBSTITUTION CIPHERS ARE COOL",
@@ -53,7 +50,6 @@ function getEncryptedStr() {
             continue;
         }
         charCode = (plaintextStr.charCodeAt(i) + shiftVal) % 26 + 65;
-        console.log("CHARCODE = " + charCode);
         encrypted += String.fromCharCode(charCode);
     }
 
@@ -62,32 +58,25 @@ function getEncryptedStr() {
     return encrypted;
 }
 
-
-// string encryption variables
-// var encrypted = "HELLO";
-// var strlen = encrypted.length;
-
-/**
- * OTHER VARIABLES
- */
+/** Game variables */
 var gameState = 0;                   // 0 = main menu, 1 = game running
 var defaultScore = 0;                // score
 var defaultTimeLimit = 300;          // 5*60 = 300 seconds countdown timer
 var score = defaultScore;
 var timeLimit = defaultTimeLimit;
 
-var startButton = {                  // Button object with boundaries
-    x:340,
-    y:530,
-    width:100,
-    height:40
+var startBtn = {                  // Button object with boundaries
+    x: 350,
+    y: 400,
+    width: 100,
+    height: 40
 };
 
-var mainMenuButton = {                  // Button object with boundaries
-    x:340,
-    y:530,
-    width:100,
-    height:40
+var menuBtn = {                  // Button object with boundaries
+    x: 640,
+    y: 16,
+    width: 110,
+    height: 40
 };
 
 /**
@@ -96,7 +85,7 @@ var mainMenuButton = {                  // Button object with boundaries
  * Create canvas, append to HTML body, set width / height.
  */
 // create canvas, attach to DOM
-var canvas = document.createElement("canvas");
+var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 document.body.appendChild(canvas);
 canvas.width = 800;
@@ -112,21 +101,13 @@ textImage.onload = checkReady;
 mainImage.src = "/CryptoBase/images/canvas1.png";
 textImage.src = "/CryptoBase/images/canvasText.png";
 
-/**
- * READY CHECK
- *
- * Performs ready check for image assets then loads game menu.
- */
+/** Performs ready check for image assets then loads game menu. */
 function checkReady() {
     this.ready = true;
     menu();
 }
 
-/**
- * START MENU RENDER
- *
- * Renders start menu intro, instructions and start game button.
- */
+/** Renders start menu intro, instructions and start game button. */
 function resetData() {
     score = defaultScore;
     timeLimit = defaultTimeLimit;
@@ -134,13 +115,7 @@ function resetData() {
     gameState = 0;
 }
 
-
-
-
-/**
- * MOUSE INTERACTIONS
- */
-
+/** Mouse interactions */
 // get mouse positions
 function getMousePos(canvas, event) {
     var startButton = canvas.getBoundingClientRect();
@@ -160,14 +135,16 @@ function isInside(pos, button){
 canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(canvas, event);
     // start game button
-    if (isInside(mousePos, startButton) && (gameState == 0)) {
+    if (isInside(mousePos, startBtn) && (gameState == 0)) {
         console.log('clicked start game');
+        encrypted = getEncryptedStr();
+        preRender(encrypted);
         playGame();
     } else {
         console.log('clicked outside start game');
     }
     // main menu button
-    if (isInside(mousePos, mainMenuButton) && (gameState == 1)) {
+    if (isInside(mousePos, menuBtn) && (gameState == 1)) {
         console.log('clicked main menu button');
         gameState = 1;
         menu();
