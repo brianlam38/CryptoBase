@@ -84,11 +84,11 @@ var menuBtn = {                  // Button object with boundaries
  * Create canvas, append to HTML body, set width / height.
  */
 // create canvas, attach to DOM
-var canvas = document.getElementById("canvas");
+var canvas = document.getElementById("menu");
 var context = canvas.getContext("2d");
-document.body.appendChild(canvas);
-canvas.width = 800;
-canvas.height = 600;
+//document.body.appendChild(canvas);
+//canvas.width = 800;
+//canvas.height = 600;
 
 // load image files
 mainImage = new Image();

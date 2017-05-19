@@ -2,6 +2,22 @@
  * Renderer script for the game.
  */
 
+
+// CANVAS ORDER
+// 0. Menu
+// 1. Game board
+// 2. Encrypted string
+function render() {
+
+    // render menu
+
+    // if start button is clicked
+        // render game board
+        // render encrypted string
+
+    // requestAnimationFrame(render)
+}
+
 /**
  * MENU RENDER
  *
@@ -82,9 +98,9 @@ var bPos_y = {
  */
 var str_canvas = document.getElementById("str_canvas");
 var str_context = str_canvas.getContext("2d");
-document.body.appendChild(str_canvas);
-str_canvas.width = 800;
-str_canvas.height = 600;
+//document.body.appendChild(str_canvas);
+//str_canvas.width = 800;
+//str_canvas.height = 600;
 
 var row = 0;
 var encryptComplete = false;
