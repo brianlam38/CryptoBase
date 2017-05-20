@@ -1,3 +1,3 @@
-# CryptoSchool
+# CryptoBase
 
-CryptoSchool is an educational web application that teaches basic cryptography using practical exercises.
+CryptoBase is a website with games that teach basic cryptography.
