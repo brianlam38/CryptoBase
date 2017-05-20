@@ -18,7 +18,7 @@ h1 {
 /* menu canvas styling */
 #menu {
 	position: absolute;
-	z-index: 1;
+	z-index: 1;             /* by default, menu layer should appear on top of all other layers */
     margin-top: 30px;
     margin-left: 10px;
     margin-bottom: 50px;

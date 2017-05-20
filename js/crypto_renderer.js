@@ -1,13 +1,17 @@
 /**
- * GAME CANVAS SETUP
+ * Caesar Cipher Tug-O-War
+ * @author Brian Lam
  *
- * Create canvas, append to HTML body, set width / height.
+ * Crypto_renderer.js represents the VIEW in the MVC framework.
  */
+
+
+/** Set up menu and game canvas layers **/
 // create canvas
-var canvas = document.getElementById("menu");
+var main_canvas = document.getElementById("menu");
 var str_canvas = document.getElementById("str_canvas");
 // create canvas ctx
-var context = canvas.getContext("2d");
+var context = main_canvas.getContext("2d");
 var str_context = str_canvas.getContext("2d");
 
 // load image files
@@ -22,42 +26,38 @@ textImage.src = "/CryptoBase/images/canvasText.png";
 
 /** Performs ready check for image assets then runs main render loop */
 function checkReady() {
+    console.log("1. Images ready");
     this.ready = true;
-    render();
+    renderMenu();
 }
 
-/** IMPROVED RENDER FUNCTION -> Upgrade to this later. **/
-// Canvas order
-// 0. Menu
-// 1. Game board
-// 2. Encrypted string
+/** Main render loop **/
 var encrypted = "";
 function render() {
-    // perform string encryption
-    if (!encryptComplete) {
-        console.log("generating encrypted string");
-        encrypted = getEncryptedStr();
-    }
-
-    // draw background layer
-    context.drawImage(mainImage, 0, 0, 800, 600);
-    // render game layer objects
-    renderGame();
-    // render string layer objects
-    renderString();
+    console.log("Main render loop");
 
     // set string canvas as top layer
     document.getElementById('menu').style.zIndex = 0;
     document.getElementById('str_canvas').style.zIndex = 1;
 
+    // perform string encryption and rendering
+    if (!encryptComplete) {
+        console.log("5. Encrypt string");
+        encrypted = getEncryptedStr();
+        console.log("6. Render encrypted string");
+        renderString(encrypted);
+    }
+
+    // render game layer objects
+    renderGame();
+
     // draw string layer
-    console.log("draw string layer");
     str_context.drawImage(str_canvas, 0, 0);
 
     // trigger game over
     timeLimit--;
     if (timeLimit == -1) {
-        cancelAnimationFrame(playGame);
+        cancelAnimationFrame(render);
         // set gameState = menu
         gameState = 0;
         // set menu canvas as top layer
@@ -67,54 +67,8 @@ function render() {
         clearCanvas();
         renderMenu();
     } else {
-        requestAnimationFrame(playGame);
+        requestAnimationFrame(render);
     }
-}
-
-/**
- * THE RENDERING "MAIN" FUNCTION
-var encrypted = "";
-function playGame() {
-    // generate encrypted string and render
-    if (!encryptComplete) {
-        console.log("generated encrypted string");
-        encrypted = getEncryptedStr();
-        console.log("pre-rendering string and boxes");
-        renderString(encrypted);
-    }
-
-    // render encrypted string and input boxes onto board
-    console.log("drawing pre-rendered board");
-
-    // set string canvas as top layer
-    document.getElementById('menu').style.zIndex = 0;
-    document.getElementById('str_canvas').style.zIndex = 1;
-
-    // render static board
-    renderGame();
-
-    // continue or game over
-    timeLimit--;
-    if (timeLimit == -1) {
-        cancelAnimationFrame(playGame);
-        // set gameState = menu
-        gameState = 0;
-        // set menu canvas as top layer
-        document.getElementById('menu').style.zIndex = 1;
-        document.getElementById('str_canvas').style.zIndex = 0;
-        // clear previous render
-        clearCanvas();
-        renderMenu();
-    } else {
-        requestAnimationFrame(playGame);
-    }
-}
- */
-
-/** Clears all canvases to prevent overlaps **/
-function clearCanvas() {
-    str_context.clearRect(0, 0, canvas.width, canvas.height);
-    context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 /**
@@ -123,6 +77,7 @@ function clearCanvas() {
  * Renders the main menu objects.
  */
 function renderMenu() {
+    console.log("2. Render main menu");
     // reset values from prev game instances
     resetData();
 
@@ -172,32 +127,10 @@ function renderGame() {
     context.fillText("Main Menu", 650, 40);
 }
 
-// hardcoded string render positions for faster performance.
-var sPos_x = {
-    width: [53, 83, 113, 143, 173, 203, 233, 263, 293, 323, 353,
-            383, 413, 443, 473, 503, 533, 563, 593, 623, 653, 683]
-};
-
-var sPos_y = {
-    height: [235, 335, 435]
-};
-
-var bPos_x = {
-    width: [50, 80, 110, 140, 170, 200, 230, 260, 290, 320, 350,
-            380, 410, 440, 470, 500, 530, 560, 590, 620, 650, 680]
-};
-
-var bPos_y = {
-    height: [250, 350, 450]
-};
-
-/**
- * renderEncrypted renders a pre-encrypted text to the canvas.
- */
+/** renders a pre-encrypted text to the canvas */
 var row = 0;
 var encryptComplete = false;
 function renderString(encrypted) {
-    console.log("first time render");
     // style text
     str_context.fillStyle = "white";
     str_context.font = "16px Verdana";
@@ -206,8 +139,9 @@ function renderString(encrypted) {
     str_context.strokeStyle = "#7C7E7B";
     var len = encrypted.length;
     for (var i = 0; i < len; i++) {
+        console.log("CHAR = " + encrypted.charAt(i));
         // render char
-        str_context.fillText(encrypted.charAt(i), sPos_x.width[i], sPos_y.height[row]);
+        str_context.fillText(encrypted.charAt(i), cPos_x.width[i], cPos_y.height[row]);
         // render char box
         str_context.rect(bPos_x.width[i], bPos_y.height[row], 20, 35);
         str_context.stroke();
@@ -217,4 +151,10 @@ function renderString(encrypted) {
     }
     // mark as completed
     encryptComplete = true;
+}
+
+/** Clears all canvases to prevent overlaps **/
+function clearCanvas() {
+    str_context.clearRect(0, 0, main_canvas.width, main_canvas.height);
+    context.clearRect(0, 0, main_canvas.width, main_canvas.height);
 }

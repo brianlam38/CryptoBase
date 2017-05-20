@@ -1,6 +1,8 @@
 /**
  * Caesar Cipher Tug-O-War
  * @author Brian Lam
+ *
+ * Crypto_engine.js represents the CONTROLLER in the MVC framework.
  */
 
 // TO DO
@@ -16,16 +18,9 @@
 // If too difficult to hashmap whole string, hashmap each individual char. If all chars hashmap != null
 // then initiate end game state.
 
-/** Hardcoded plaintext */
-// store an array of plaintext strings
-var plaintext = ["THIS IS A TEST MESSAGE LOL",
-                 "SUBSTITUTION CIPHERS ARE COOL",
-                 "STEALING COMPANY INFORMATION"];
-
 
 /**
- * Takes in a string value, encrypts it with a shift cipher
- * then adds it to the encrypted variable to be used in-game.
+ * Chooses then encrypts random string from dict with a shift cipher.
  */
 function getEncryptedStr() {
     // choose random string from dictionary
@@ -57,28 +52,7 @@ function getEncryptedStr() {
     return encrypted;
 }
 
-/** Game variables */
-var gameState = 0;                   // 0 = main menu, 1 = game running
-var defaultScore = 0;                // score
-var defaultTimeLimit = 300;          // 5*60 = 300 seconds countdown timer
-var score = defaultScore;
-var timeLimit = defaultTimeLimit;
-
-var startBtn = {                  // Button object with boundaries
-    x: 350,
-    y: 400,
-    width: 100,
-    height: 40
-};
-
-var menuBtn = {                  // Button object with boundaries
-    x: 640,
-    y: 16,
-    width: 110,
-    height: 40
-};
-
-/** Renders start menu intro, instructions and start game button. */
+/** Resets game data */
 function resetData() {
     score = defaultScore;
     timeLimit = defaultTimeLimit;
@@ -86,8 +60,7 @@ function resetData() {
     gameState = 0;
 }
 
-/** Mouse interactions */
-// get mouse positions
+/** Get mouse xy position on canvas */
 function getMousePos(canvas, event) {
     var startButton = canvas.getBoundingClientRect();
     return {
@@ -96,21 +69,19 @@ function getMousePos(canvas, event) {
     };
 }
 
-/** check if mouse is inside button */
-function isInside(pos, button) {
-    return pos.x > button.x && pos.x < button.x+button.width
-        && pos.y < button.y+button.height && pos.y > button.y
+/** Check if mouse is inside object */
+function isInside(pos, object) {
+    return pos.x > object.x && pos.x < object.x+object.width
+        && pos.y < object.y+object.height && pos.y > object.y
 }
 
 /** game button event listeners **/
-canvas.addEventListener('click', function(event) {
-    var mousePos = getMousePos(canvas, event);
+main_canvas.addEventListener('click', function(event) {
+    var mousePos = getMousePos(main_canvas, event);
     // start game button
     if (isInside(mousePos, startBtn) && (gameState == 0)) {
-        console.log('clicked start game');
-        encrypted = getEncryptedStr();
-        renderString(encrypted);
-        playGame();
+        console.log("3. Clicked start game");
+        render();
     } else {
         console.log('clicked outside start game');
     }
@@ -129,6 +100,6 @@ str_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(str_canvas, event);
     // check if player clicked in char box
     if (isInside(mousePos, startBtn) && (gameState == 0)) {
-        // do suff
+        // do stuff
     }
 }, false);
