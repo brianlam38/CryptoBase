@@ -2,7 +2,7 @@
  * Caesar Cipher Tug-O-War
  * @author Brian Lam
  *
- * Crypto_renderer.js represents the VIEW in the MVC framework.
+ * Crypto_renderer.js represents the VIEW.
  */
 
 
@@ -32,7 +32,6 @@ function checkReady() {
 }
 
 /** Main render loop **/
-var encrypted = "";
 function render() {
     console.log("Main render loop");
 
@@ -43,7 +42,7 @@ function render() {
     // perform string encryption and rendering
     if (!encryptComplete) {
         console.log("5. Encrypt string");
-        encrypted = getEncryptedStr();
+        encrypted = setEncryptedStr();
         console.log("6. Render encrypted string");
         renderString(encrypted);
     }

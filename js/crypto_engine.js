@@ -2,7 +2,7 @@
  * Caesar Cipher Tug-O-War
  * @author Brian Lam
  *
- * Crypto_engine.js represents the CONTROLLER in the MVC framework.
+ * Crypto_engine.js represents the CONTROLLER.
  */
 
 // TO DO
@@ -18,11 +18,14 @@
 // If too difficult to hashmap whole string, hashmap each individual char. If all chars hashmap != null
 // then initiate end game state.
 
-
 /**
- * Chooses then encrypts random string from dict with a shift cipher.
+ * ENCRYPTION / DECRYPTION FUNCTIONS
+ *
+ * setEncryptedStr()
  */
-function getEncryptedStr() {
+
+/** Chooses then encrypts random string from dict with a shift cipher. */
+function setEncryptedStr() {
     // choose random string from dictionary
     var chooseStr = Math.floor(Math.random() * 100) % 3;
     var plaintextStr = plaintext[chooseStr];
@@ -52,15 +55,32 @@ function getEncryptedStr() {
     return encrypted;
 }
 
-/** Resets game data */
+/**
+ * GAME DATA FUNCTIONS
+ *
+ * resetData()
+ */
+
+// Resets game data
 function resetData() {
     score = defaultScore;
     timeLimit = defaultTimeLimit;
     encryptComplete = false;
     gameState = 0;
+    encrypted = "";
 }
 
-/** Get mouse xy position on canvas */
+
+/**
+ * GAME INTERACTION / EVENT FUNCTIONS
+ *
+ * getMousePos(canvas, event)
+ * isInside(pos, object)
+ * main_canvas.addEventListener('click',function())
+ * str_canvas.addEventListener('click',function())
+ */
+
+/// Get mouse xy position on canvas
 function getMousePos(canvas, event) {
     var startButton = canvas.getBoundingClientRect();
     return {
@@ -69,13 +89,13 @@ function getMousePos(canvas, event) {
     };
 }
 
-/** Check if mouse is inside object */
+// Check if mouse is inside object
 function isInside(pos, object) {
     return pos.x > object.x && pos.x < object.x+object.width
         && pos.y < object.y+object.height && pos.y > object.y
 }
 
-/** game button event listeners **/
+// Main menu layer event listeners
 main_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(main_canvas, event);
     // start game button
@@ -95,7 +115,7 @@ main_canvas.addEventListener('click', function(event) {
     }
 }, false);
 
-/** string decryption event listeners **/
+// String interaction layer event listeners
 str_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(str_canvas, event);
     // check if player clicked in char box

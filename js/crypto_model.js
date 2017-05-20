@@ -2,7 +2,7 @@
  * Caesar Cipher Tug-O-War
  * @author Brian Lam
  *
- * Crypto_model.js represents the MODEL in the MVC framework.
+ * Crypto_model.js represents the MODEL.
  */
 
 /** Plaintext data */
@@ -17,6 +17,8 @@ var defaultScore = 0;
 var defaultTimeLimit = 300;
 var score = defaultScore;
 var timeLimit = defaultTimeLimit;
+// resulting encrypted string
+var encrypted = "";
 
 /** Button objects */
 // Start button pos + sizing
