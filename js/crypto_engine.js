@@ -158,7 +158,7 @@ main_canvas.addEventListener('click', function(event) {
     }
 }, false);
 
-// String interaction layer event listeners
+// String layer event listeners
 str_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(str_canvas, event);
     // clicked inside a char box for interaction
