@@ -127,9 +127,9 @@ function renderGame() {
 }
 
 /** renders a pre-encrypted text to the canvas */
-var row = 0;
 var encryptComplete = false;
 function renderString(encrypted) {
+    var row = 0;
     // style text
     str_context.fillStyle = "white";
     str_context.font = "16px Verdana";
@@ -141,19 +141,26 @@ function renderString(encrypted) {
         console.log("CHAR = " + encrypted.charAt(i));
         // render char
         str_context.fillText(encrypted.charAt(i), cPos_x.width[i], cPos_y.height[row]);
+
         // render char box
-        str_context.rect(bPos_x.width[i], bPos_y.height[row], 20, 35);
+        str_context.rect(bPos_x.width[i%22], bPos_y.height[row], 20, 35);
         str_context.stroke();
-        if (bPos_x.width == 680) {
+        if (bPos_x.width[i%22] == 680) {
+            console.log(bPos_x.width[i%22]);
             row++;
         }
     }
+
+    // FIND OUT HOW TO REMOVE STR_CONTEXT.RECT (only string is removing, not the rect)
+
     // mark as completed
     encryptComplete = true;
 }
 
-/** Clears all canvases to prevent overlaps **/
+/** Clear all layers to prevent overlap **/
 function clearCanvas() {
     str_context.clearRect(0, 0, main_canvas.width, main_canvas.height);
     context.clearRect(0, 0, main_canvas.width, main_canvas.height);
+    str_context.beginPath();
+    context.beginPath();
 }
