@@ -98,7 +98,8 @@ function isInside(pos, object) {
 
 // Check if mouse is inside any box
 /**
- * PROBLEM: FOR LOOP IS BREAKING ON THE FIRST ITERATION
+ * TO DO: RETURN THE CLICKED BOX OBJECT.
+ * ASSIGN THIS OBJECT TO THE EVENT LISTENER, SO RECT CAN BE TARGETED AND CHANGES RENDERED
  */
 function isInsideBoxes(pos) {
     var len = boxArray.length;
@@ -139,17 +140,18 @@ function initBoxArray(numBoxes) {
 // Main menu layer event listeners
 main_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(main_canvas, event);
-    // start game button
+    // clicked start game button
     if (isInside(mousePos, startBtn) && (gameState == 0)) {
         console.log("3. Clicked start game");
+        gameState = 1;
         render();
     } else {
         console.log('clicked outside start game');
     }
-    // main menu button
+    // clicked main menu button
     if (isInside(mousePos, menuBtn) && (gameState == 1)) {
         console.log('clicked main menu button');
-        gameState = 1;
+        gameState = 0;
         renderMenu();
     } else {
         console.log('clicked outside main menu button');
@@ -159,10 +161,10 @@ main_canvas.addEventListener('click', function(event) {
 // String interaction layer event listeners
 str_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(str_canvas, event);
-    // check if player clicked in char box
+    // clicked inside a char box for interaction
     if (isInsideBoxes(mousePos) && (gameState == 1)) {
         console.log('clicked inside a box');
-        //selectBox();
+        selectBox();
     } else {
         console.log('clicked outside a box');
     }
