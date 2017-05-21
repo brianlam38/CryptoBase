@@ -28,8 +28,8 @@
 function setEncryptedStr() {
     // choose random string from dictionary
     var chooseStr = Math.floor(Math.random() * 100) % 3;
-    var plaintextStr = plaintext[chooseStr];
-    console.log("PLAINTEXT = " + plaintextStr);
+    selectedPlaintext = plaintext[chooseStr];
+    console.log("PLAINTEXT = " + selectedPlaintext);
 
     // generate random shift value between 1-26
     var shiftVal = (Math.floor(Math.random() * 100) + 1) % 26;
@@ -37,16 +37,16 @@ function setEncryptedStr() {
 
     var encrypted = "";
     var charCode = 0;
-    var len = plaintextStr.length;
+    var len = selectedPlaintext.length;
 
     // convert plaintext -> encrypted
     for (var i = 0; i < len; i++) {
         // add space to encrypted
-        if (plaintextStr.charAt(i) == " ") {
-            encrypted += plaintextStr.charAt(i);
+        if (selectedPlaintext.charAt(i) == " ") {
+            encrypted += selectedPlaintext.charAt(i);
             continue;
         }
-        charCode = (plaintextStr.charCodeAt(i) + shiftVal) % 26 + 65;
+        charCode = (selectedPlaintext.charCodeAt(i) + shiftVal) % 26 + 65;
         encrypted += String.fromCharCode(charCode);
     }
 
@@ -54,6 +54,7 @@ function setEncryptedStr() {
     console.log("ENCRYPTED STRING = " + encrypted);
     return encrypted;
 }
+
 
 /**
  * GAME DATA FUNCTIONS
@@ -82,17 +83,57 @@ function resetData() {
 
 /// Get mouse xy position on canvas
 function getMousePos(canvas, event) {
-    var startButton = canvas.getBoundingClientRect();
+    var border = canvas.getBoundingClientRect();
     return {
-        x: event.clientX - startButton.left,
-        y: event.clientY - startButton.top
+        x: event.clientX - border.left,
+        y: event.clientY - border.top
     };
 }
 
 // Check if mouse is inside object
 function isInside(pos, object) {
     return pos.x > object.x && pos.x < object.x+object.width
-        && pos.y < object.y+object.height && pos.y > object.y
+        && pos.y < object.y+object.height && pos.y > object.y;
+}
+
+// Check if mouse is inside any box
+/**
+ * PROBLEM: FOR LOOP IS BREAKING ON THE FIRST ITERATION
+ */
+function isInsideBoxes(pos) {
+    var len = boxArray.length;
+    for (var i = 0; i < len; i++) {
+        console.log("Checking boxArray = " + boxArray[i]);
+        console.log("BOX_X = " + boxArray[i].x + " // BOX_Y = " + boxArray[i].y + " // WIDTH = " + boxArray[i].width + " // HEIGHT = " + boxArray[i].height);
+        if (isInside(pos, boxArray[i])) {
+            console.log("BOX FOUND");
+            return true;
+        }
+        //return pos.x > boxArray[i].x && pos.x < boxArray[i].x+boxArray[i].width
+        //    && pos.y <  boxArray[i].y+boxArray[i].height && pos.y > boxArray[i].y
+    }
+    console.log("BOX NOT FOUND");
+    return false;
+}
+
+// Initialise array with box objects for event interactions
+function initBoxArray(numBoxes) {
+    console.log("ARRAY LENGTH = " + numBoxes);
+    var row = 0;
+    for (var i = 0; i < numBoxes; i++) {
+        // create box obj
+        var box = {
+            x: bPos_x[i%22], y: bPos_y[row], width: boxW, height: boxH
+        };
+        // add box obj to array
+        console.log("PUSHING BOX #" + i);
+        //console.log("BOX_X = " + box.x + " // BOX_Y = " + box.y + " // WIDTH = " + box.width + " // HEIGHT = " + box.height);
+        boxArray.push(box);
+        // new row
+        if (i == 21) {
+            row++;
+        }
+    }
 }
 
 // Main menu layer event listeners
@@ -119,7 +160,10 @@ main_canvas.addEventListener('click', function(event) {
 str_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(str_canvas, event);
     // check if player clicked in char box
-    if (isInside(mousePos, startBtn) && (gameState == 0)) {
-        // do stuff
+    if (isInsideBoxes(mousePos) && (gameState == 1)) {
+        console.log('clicked inside a box');
+        //selectBox();
+    } else {
+        console.log('clicked outside a box');
     }
 }, false);

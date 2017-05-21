@@ -9,6 +9,7 @@
 var plaintext = ["THIS IS A TEST MESSAGE LOL",
                  "SUBSTITUTION CIPHERS ARE COOL",
                  "STEALING COMPANY INFORMATION"];
+var selectedPlaintext = "";
 
 /** Game data */
 // 0 = main menu, 1 = game running
@@ -38,23 +39,23 @@ var menuBtn = {
 
 /** Char + box positioning */
 // Char x pos
-var cPos_x = {
-    width: [53, 83, 113, 143, 173, 203, 233, 263, 293, 323, 353,
-        383, 413, 443, 473, 503, 533, 563, 593, 623, 653, 683]
-};
+var cPos_x = [53, 83, 113, 143, 173, 203, 233, 263, 293, 323, 353,
+        383, 413, 443, 473, 503, 533, 563, 593, 623, 653, 683];
+
 // Char y pos
-var cPos_y = {
-    height: [235, 335, 435]
-};
+var cPos_y = [235, 335, 435];
+
 // Box x pos
-var bPos_x = {
-    width: [50, 80, 110, 140, 170, 200, 230, 260, 290, 320, 350,
-        380, 410, 440, 470, 500, 530, 560, 590, 620, 650, 680]
-};
+var bPos_x = [50, 80, 110, 140, 170, 200, 230, 260, 290, 320, 350,
+        380, 410, 440, 470, 500, 530, 560, 590, 620, 650, 680];
+
 // Box y pos
-var bPos_y = {
-    height: [250, 350, 450]
-};
+var bPos_y = [250, 350, 450];
+
+/** Box objects for interaction */
+var boxW = 20;
+var boxH = 35;
+var boxArray = [];
 
 
 

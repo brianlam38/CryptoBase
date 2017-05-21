@@ -39,12 +39,14 @@ function render() {
     document.getElementById('menu').style.zIndex = 0;
     document.getElementById('str_canvas').style.zIndex = 1;
 
-    // perform string encryption and rendering
+    // perform string encryption, rendering and initialise box array
     if (!encryptComplete) {
         console.log("5. Encrypt string");
         encrypted = setEncryptedStr();
         console.log("6. Render encrypted string");
         renderString(encrypted);
+        console.log("7. Initialise box array");
+        initBoxArray(selectedPlaintext.length);
     }
 
     // render game layer objects
@@ -56,6 +58,8 @@ function render() {
     // trigger game over
     timeLimit--;
     if (timeLimit == -1) {
+        console.log("8. Game over");
+        /**
         cancelAnimationFrame(render);
         // set gameState = menu
         gameState = 0;
@@ -63,8 +67,15 @@ function render() {
         document.getElementById('menu').style.zIndex = 1;
         document.getElementById('str_canvas').style.zIndex = 0;
         // clear previous render
+        console.log("9. Clear canvas, boxArray and reset game data");
         clearCanvas();
+        // clear boxArray
+        boxArray = [];
+        // reset values from prev game instances
+        resetData();
+        // render menus
         renderMenu();
+         **/
     } else {
         requestAnimationFrame(render);
     }
@@ -77,8 +88,6 @@ function render() {
  */
 function renderMenu() {
     console.log("2. Render main menu");
-    // reset values from prev game instances
-    resetData();
 
     // draw background layer
     context.drawImage(mainImage, 0, 0, 800, 600);
@@ -140,27 +149,38 @@ function renderString(encrypted) {
     for (var i = 0; i < len; i++) {
         console.log("CHAR = " + encrypted.charAt(i));
         // render char
-        str_context.fillText(encrypted.charAt(i), cPos_x.width[i], cPos_y.height[row]);
-
+        str_context.fillText(encrypted.charAt(i), cPos_x[i%22], cPos_y[row]);
         // render char box
-        str_context.rect(bPos_x.width[i%22], bPos_y.height[row], 20, 35);
+        str_context.rect(bPos_x[i%22], bPos_y[row], boxW, boxH);
         str_context.stroke();
-        if (bPos_x.width[i%22] == 680) {
-            console.log(bPos_x.width[i%22]);
+        if (bPos_x[i%22] == 680) {
+            console.log(bPos_x[i%22]);
             row++;
         }
     }
-
-    // FIND OUT HOW TO REMOVE STR_CONTEXT.RECT (only string is removing, not the rect)
 
     // mark as completed
     encryptComplete = true;
 }
 
-/** Clear all layers to prevent overlap **/
+/** Clear all layers and resets paths to prevent overlap **/
 function clearCanvas() {
     str_context.clearRect(0, 0, main_canvas.width, main_canvas.height);
     context.clearRect(0, 0, main_canvas.width, main_canvas.height);
     str_context.beginPath();
     context.beginPath();
+}
+
+/** Render interactions with game **/
+// activate selected box
+function selectBox() {
+    
+}
+// de-active selected box
+function deselectBox() {
+
+}
+// render char
+function inputChar() {
+
 }
