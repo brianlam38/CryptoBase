@@ -104,8 +104,8 @@ function isInside(pos, object) {
 function isInsideBoxes(pos) {
     var len = boxArray.length;
     for (var i = 0; i < len; i++) {
-        console.log("Checking boxArray = " + boxArray[i]);
-        console.log("BOX_X = " + boxArray[i].x + " // BOX_Y = " + boxArray[i].y + " // WIDTH = " + boxArray[i].width + " // HEIGHT = " + boxArray[i].height);
+        //console.log("Checking boxArray = " + boxArray[i]);
+        //console.log("BOX_X = " + boxArray[i].x + " // BOX_Y = " + boxArray[i].y + " // WIDTH = " + boxArray[i].width + " // HEIGHT = " + boxArray[i].height);
         if (isInside(pos, boxArray[i])) {
             console.log("BOX FOUND");
             return boxArray[i];
@@ -113,7 +113,7 @@ function isInsideBoxes(pos) {
         //return pos.x > boxArray[i].x && pos.x < boxArray[i].x+boxArray[i].width
         //    && pos.y <  boxArray[i].y+boxArray[i].height && pos.y > boxArray[i].y
     }
-    console.log("BOX NOT FOUND");
+    //console.log("BOX NOT FOUND");
     return false;
 }
 
@@ -158,17 +158,25 @@ main_canvas.addEventListener('click', function(event) {
     }
 }, false);
 
+/**
+ * For individual object interactions, possibly use a HASMMAP to determine which
+ * box object is selected and then you can perform functions from there.
+ */
+
 // String layer event listeners
 str_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(str_canvas, event);
-    // clicked inside a char box for interaction
+    var targetedBox = isInsideBoxes(mousePos);
+    // click inside selected box = activate
     if (isInsideBoxes(mousePos) && (gameState == 1)) {
         console.log('clicked inside a box');
-        var targetedBox = isInsideBoxes(mousePos);
-        selectBox(targetedBox);
+        renderBoxSelect(targetedBox);
     } else {
-        var targetValue = isInsideBoxes(mousePos);
-        console.log('target value = ' + targetValue);
         console.log('clicked outside a box');
+    }
+    // click outside of selected box = deactivate
+    if (selectedBox && (!isInsideBoxes(mousePos))) {
+        console.log('BOX SELECTED -> Clicking outside to deactivate');
+        renderBoxSelect(targetedBox);
     }
 }, false);

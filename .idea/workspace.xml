@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/js/crypto_engine.js" description="selectBox(targetedBox);" line="172" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="da1ae54a-9cf4-40a2-8226-dec51a15b6ea" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/crypto_engine.js" afterPath="$PROJECT_DIR$/js/crypto_engine.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/crypto_model.js" afterPath="$PROJECT_DIR$/js/crypto_model.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/crypto_renderer.js" afterPath="$PROJECT_DIR$/js/crypto_renderer.js" />
     </list>
     <ignored path="CryptoBase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,8 +61,8 @@
       <file leaf-file-name="crypto_model.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/crypto_model.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="750">
-              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+            <state relative-caret-position="345">
+              <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -69,8 +73,8 @@
       <file leaf-file-name="crypto_renderer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/crypto_renderer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2640">
-              <caret line="176" column="4" selection-start-line="176" selection-start-column="4" selection-end-line="176" selection-end-column="4" />
+            <state relative-caret-position="549">
+              <caret line="191" column="5" selection-start-line="191" selection-start-column="5" selection-end-line="191" selection-end-column="5" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -81,8 +85,8 @@
       <file leaf-file-name="crypto_engine.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/crypto_engine.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2595">
-              <caret line="173" column="10" selection-start-line="173" selection-start-column="10" selection-end-line="173" selection-end-column="10" />
+            <state relative-caret-position="399">
+              <caret line="162" column="72" selection-start-line="162" selection-start-column="72" selection-end-line="162" selection-end-column="72" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -365,12 +369,12 @@
       <workItem from="1494946893285" duration="26961000" />
       <workItem from="1495328152717" duration="6623000" />
       <workItem from="1495336849856" duration="2260000" />
-      <workItem from="1495344125564" duration="886000" />
+      <workItem from="1495344125564" duration="3072000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103097000" />
+    <option name="totallyTimeSpent" value="105283000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="823" extended-state="6" />
@@ -708,14 +712,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/css/crypto.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/caesar.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1740">
@@ -740,20 +736,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/crypto_renderer.js">
+    <entry file="file://$PROJECT_DIR$/css/crypto.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2640">
-          <caret line="176" column="4" selection-start-line="176" selection-start-column="4" selection-end-line="176" selection-end-column="4" />
+        <state relative-caret-position="105">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/crypto_model.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/crypto_model.js">
+    <entry file="file://$PROJECT_DIR$/js/crypto_renderer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+        <state relative-caret-position="549">
+          <caret line="191" column="5" selection-start-line="191" selection-start-column="5" selection-end-line="191" selection-end-column="5" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -762,8 +766,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/crypto_engine.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2595">
-          <caret line="173" column="10" selection-start-line="173" selection-start-column="10" selection-end-line="173" selection-end-column="10" />
+        <state relative-caret-position="399">
+          <caret line="162" column="72" selection-start-line="162" selection-start-column="72" selection-end-line="162" selection-end-column="72" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
