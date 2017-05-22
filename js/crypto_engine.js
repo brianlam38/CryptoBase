@@ -108,7 +108,7 @@ function isInsideBoxes(pos) {
         console.log("BOX_X = " + boxArray[i].x + " // BOX_Y = " + boxArray[i].y + " // WIDTH = " + boxArray[i].width + " // HEIGHT = " + boxArray[i].height);
         if (isInside(pos, boxArray[i])) {
             console.log("BOX FOUND");
-            return true;
+            return boxArray[i];
         }
         //return pos.x > boxArray[i].x && pos.x < boxArray[i].x+boxArray[i].width
         //    && pos.y <  boxArray[i].y+boxArray[i].height && pos.y > boxArray[i].y
@@ -164,8 +164,11 @@ str_canvas.addEventListener('click', function(event) {
     // clicked inside a char box for interaction
     if (isInsideBoxes(mousePos) && (gameState == 1)) {
         console.log('clicked inside a box');
-        selectBox();
+        var targetedBox = isInsideBoxes(mousePos);
+        selectBox(targetedBox);
     } else {
+        var targetValue = isInsideBoxes(mousePos);
+        console.log('target value = ' + targetValue);
         console.log('clicked outside a box');
     }
 }, false);
