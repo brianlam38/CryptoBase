@@ -147,6 +147,7 @@ function renderString(encrypted) {
     str_context.strokeStyle = "#7C7E7B";
     var len = encrypted.length;
     for (var i = 0; i < len; i++) {
+        if (encrypted.charAt(i) == " ") continue;
         console.log("CHAR = " + encrypted.charAt(i));
         // render char
         str_context.fillText(encrypted.charAt(i), cPos_x[i%22], cPos_y[row]);
@@ -200,9 +201,9 @@ function renderChar(box, keyCode) {
     console.log(keyChar);
     // clearing prev char
     str_context.clearRect(box.x+1, box.y+1, boxW-2, boxH-2);    // include clearing padding
-    str_context.beginPath();
+    //str_context.beginPath();
     // drawing new char
     str_context.fillStyle = "white";
     str_context.font = "16px Verdana";
-    str_context.fillText(keyChar, box.x+4, box.y+21);
+    str_context.fillText(keyChar, box.x+4.5, box.y+21.5);
 }

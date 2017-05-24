@@ -122,6 +122,7 @@ function initBoxArray(numBoxes) {
     console.log("ARRAY LENGTH = " + numBoxes);
     var row = 0;
     for (var i = 0; i < numBoxes; i++) {
+        if (selectedPlaintext.charAt(i) == " ") continue;
         // create box obj
         var box = {
             x: bPos_x[i%22], y: bPos_y[row], width: boxW, height: boxH

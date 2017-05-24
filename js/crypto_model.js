@@ -20,8 +20,6 @@ var score = defaultScore;
 var timeLimit = defaultTimeLimit;
 // resulting encrypted string
 var encrypted = "";
-// render states
-var selectedBox = false;
 
 /** Button objects */
 // Start button pos + sizing
