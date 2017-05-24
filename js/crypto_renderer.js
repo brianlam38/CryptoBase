@@ -172,24 +172,24 @@ function clearCanvas() {
 }
 
 /** Render interactions with game **/
-// activate / deactivate selected box
-function renderBoxSelect(box) {
-    if (!selectedBox) {
-        str_context.beginPath();
-        str_context.lineWidth = 1;
-        str_context.strokeStyle = "#ffff00";
-        str_context.rect(box.x, box.y, boxW, boxH);
-        str_context.stroke();
-        selectedBox = true;
-    } else {
-        str_context.clearRect(box.x-1, box.y-1, boxW+2, boxH+2);    // include clearing padding
-        str_context.beginPath();
-        str_context.lineWidth = 2;
-        str_context.strokeStyle = "#7C7E7B";
-        str_context.rect(box.x, box.y, boxW, boxH);
-        str_context.stroke();
-        selectedBox = false;
-    }
+// activate selected box
+function boxSelect(box) {
+    // drawing box selected
+    str_context.beginPath();
+    str_context.lineWidth = 1;
+    str_context.strokeStyle = "#ffff00";
+    str_context.rect(box.x, box.y, boxW, boxH);
+    str_context.stroke();
+}
+// deactivate selected box
+function boxDeselect(box) {
+    // clearing box selected
+    str_context.clearRect(box.x-1, box.y-1, boxW+2, boxH+2);    // include clearing padding
+    // re-drawing default
+    str_context.lineWidth = 2;
+    str_context.strokeStyle = "#7C7E7B";
+    str_context.rect(box.x, box.y, boxW, boxH);
+    str_context.stroke();
 }
 
 // render char

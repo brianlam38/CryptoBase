@@ -164,19 +164,31 @@ main_canvas.addEventListener('click', function(event) {
  */
 
 // String layer event listeners
+var prevBox;
 str_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(str_canvas, event);
     var targetedBox = isInsideBoxes(mousePos);
-    // click inside selected box = activate
+    // activate clicked box
     if (isInsideBoxes(mousePos) && (gameState == 1)) {
-        console.log('clicked inside a box');
-        renderBoxSelect(targetedBox);
+        console.log('== clicked inside a box ==');
+        gameState = 2;  // go to selected state
+        prevBox = targetedBox;
+        boxSelect(targetedBox);
     } else {
-        console.log('clicked outside a box');
+        console.log('== clicked outside a box ==');
     }
-    // click outside of selected box = deactivate
-    if (selectedBox && (!isInsideBoxes(mousePos))) {
+    // activate clicked box + deactivate prev box
+    if (isInsideBoxes(mousePos) && !isInside(mousePos, prevBox) && gameState == 2){
+        console.log('== clicked inside ANOTHER box ==');
+        gameState = 2;  // keep selected state
+        prevBox = targetedBox;
+        boxDeselect(prevBox);
+        boxSelect(targetedBox);
+    }
+    // deactivate clicked box
+    if ((!isInside(mousePos, targetedBox)) && (gameState == 2)) {
         console.log('BOX SELECTED -> Clicking outside to deactivate');
-        renderBoxSelect(targetedBox);
+        gameState = 1; // go back to unselected state
+        boxDeselect(targetedBox);
     }
 }, false);
