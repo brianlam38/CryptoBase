@@ -47,6 +47,7 @@ function render() {
         renderString(encrypted);
         console.log("7. Initialise box array");
         initBoxArray(selectedPlaintext.length);
+        initUserString();
     }
 
     // render game layer objects
