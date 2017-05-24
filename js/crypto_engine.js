@@ -164,10 +164,11 @@ main_canvas.addEventListener('click', function(event) {
  */
 
 // String layer event listeners
+var targetedBox;
 var prevBox;
 str_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(str_canvas, event);
-    var targetedBox = isInsideBoxes(mousePos);
+    targetedBox = isInsideBoxes(mousePos);
     // activate clicked box
     if (isInsideBoxes(mousePos) && (gameState == 1)) {
         console.log('== clicked inside a box ==');
@@ -190,5 +191,17 @@ str_canvas.addEventListener('click', function(event) {
         console.log('BOX SELECTED -> Clicking outside to deactivate');
         gameState = 1; // go back to unselected state
         boxDeselect(targetedBox);
+    }
+}, false);
+
+// Keyboard event listeners
+var keyclick = {};
+document.addEventListener("keypress", function(event) {
+    // only works inside game
+    if (gameState == 2) {
+        keyclick[event.keyCode] = true;
+        console.log(event.keyCode);
+        // render char inside box
+        renderChar(targetedBox, event.keyCode);
     }
 }, false);

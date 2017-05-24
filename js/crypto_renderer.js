@@ -193,6 +193,16 @@ function boxDeselect(box) {
 }
 
 // render char
-function inputChar() {
-
+function renderChar(box, keyCode) {
+    console.log("!!! RENDERING CHAR !!!");
+    // convert keyCode to char
+    var keyChar = String.fromCharCode(keyCode);
+    console.log(keyChar);
+    // clearing prev char
+    str_context.clearRect(box.x+1, box.y+1, boxW-2, boxH-2);    // include clearing padding
+    str_context.beginPath();
+    // drawing new char
+    str_context.fillStyle = "white";
+    str_context.font = "16px Verdana";
+    str_context.fillText(keyChar, box.x+4, box.y+21);
 }
