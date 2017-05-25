@@ -204,7 +204,7 @@ document.addEventListener("keypress", function(event) {
         console.log(event.keyCode);
         // render char inside box
         renderChar(targetedBox, event.keyCode);
-        userAttempt(targetedBox, event.keyCode);
+        storeUserAttempt(event.keyCode);
     }
 }, false);
 
@@ -222,10 +222,27 @@ function initUserString() {
     console.log("DEFAULT USER ATTEMPT STRING = " + userString + "END");
 }
 
-// function to dynamically change the player's decryption attempt
-function userAttempt(box, keyCode) {
-    console.log("!!! RENDERING CHAR !!!");
+// store's users decryption attempts
+function storeUserAttempt(keyCode) {
     // convert keyCode to char
     var char = String.fromCharCode(keyCode);
-    userString
+    console.log("USER ATTEMPT = " + char);
+    var len = boxArray.length;
+    for (var i = 0; i < len; i++) {
+        // Compare XY values
+        if (boxArray[i].x == targetedBox.x && boxArray[i].y == targetedBox.y) {
+            console.log("MATCH FOUND. STRING POS = " + i);
+            userString = replaceChar(i, char);
+            break;
+        }
+    }
+    console.log("CURRENT ATTEMPT = " + userString + " END")
+}
+
+// replace char at index in string
+function replaceChar(index, char) {
+    if (index > userString.length-1) {
+        return userString;
+    }
+    return userString.substr(0,index) + char + userString.substr(index+1);
 }
