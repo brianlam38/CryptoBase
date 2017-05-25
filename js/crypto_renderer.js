@@ -125,15 +125,15 @@ function renderGame() {
     context.fillText("Time Remaining: " + timeLimit, 350, 40);
 
     // render go back to main menu button
-    context.fillStyle = "red";
-    context.fillRect(menuBtn.x, menuBtn.y, menuBtn.width, menuBtn.height);
-    context.lineWidth = 2;
-    context.stroke();
+    str_context.fillStyle = "red";
+    str_context.fillRect(menuBtn.x, menuBtn.y, menuBtn.width, menuBtn.height);
+    str_context.lineWidth = 2;
+    str_context.stroke();
 
-    // render start button text
-    context.fillStyle = "white";
-    context.font = "lighter 16px Verdana";
-    context.fillText("Main Menu", 650, 40);
+    // render menu button text
+    str_context.fillStyle = "white";
+    str_context.font = "lighter 16px Verdana";
+    str_context.fillText("Main Menu", 650, 40);
 
     // render submit button
     str_context.fillStyle = "red";

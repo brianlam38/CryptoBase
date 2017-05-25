@@ -74,9 +74,11 @@ function storeUserAttempt(keyCode) {
 
 
 /**
- * GAME DATA FUNCTIONS
+ * GAME DATA CHANGING FUNCTIONS
  *
  * resetData()
+ * initUserString()
+ * replaceChar()
  */
 
 // Resets game data
@@ -98,7 +100,13 @@ function initUserString() {
     console.log("DEFAULT USER ATTEMPT STRING = " + userString + "END");
 }
 
-
+// replace char at index in string
+function replaceChar(index, char) {
+    if (index > userString.length-1) {
+        return userString;
+    }
+    return userString.substr(0,index) + char + userString.substr(index+1);
+}
 
 /**
  * GAME INTERACTION / EVENT FUNCTIONS
@@ -174,14 +182,6 @@ main_canvas.addEventListener('click', function(event) {
     } else {
         console.log('clicked outside start game');
     }
-    // clicked main menu button
-    if (isInside(mousePos, menuBtn) && (gameState == 1)) {
-        console.log('clicked main menu button');
-        gameState = 0;
-        renderMenu();
-    } else {
-        console.log('clicked outside main menu button');
-    }
 }, false);
 
 /**
@@ -218,9 +218,20 @@ str_canvas.addEventListener('click', function(event) {
         gameState = 1; // go back to unselected state
         boxDeselect(targetedBox);
     }
-    // click submission button
-    
-    
+    // clicked on main menu button
+    if (isInside(mousePos, menuBtn) && (gameState != 0)) {
+        console.log('clicked main menu button');
+        gameState = 0;
+        renderMenu();
+    } else {
+        console.log('clicked outside main menu button');
+    }
+    // clicked submit button
+    if (isInside(mousePos, submitBtn) && (gameState != 0)) {
+        console.log("Clicked decryption button");
+    } else {
+        console.log('clicked outside buttons');
+    }
 }, false);
 
 // Keyboard event listeners
@@ -235,15 +246,3 @@ document.addEventListener("keypress", function(event) {
         storeUserAttempt(event.keyCode);
     }
 }, false);
-
-/**
- * REPOSITION THE FUNCTIONS BELOW ELSEWHERE
- */
-
-// replace char at index in string
-function replaceChar(index, char) {
-    if (index > userString.length-1) {
-        return userString;
-    }
-    return userString.substr(0,index) + char + userString.substr(index+1);
-}
