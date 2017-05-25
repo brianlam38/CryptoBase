@@ -134,6 +134,17 @@ function renderGame() {
     context.fillStyle = "white";
     context.font = "lighter 16px Verdana";
     context.fillText("Main Menu", 650, 40);
+
+    // render submit button
+    str_context.fillStyle = "red";
+    str_context.fillRect(submitBtn.x, submitBtn.y, submitBtn.width, submitBtn.height);
+    str_context.lineWidth = 2;
+    str_context.stroke();
+
+    // render start button text
+    str_context.fillStyle = "white";
+    str_context.font = "lighter 16px Verdana";
+    str_context.fillText("DECRYPT", 360, 525);
 }
 
 /** renders a pre-encrypted text to the canvas */

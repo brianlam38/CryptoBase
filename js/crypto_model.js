@@ -36,6 +36,13 @@ var menuBtn = {
     width: 110,
     height: 40
 };
+// Submit button
+var submitBtn = {
+    x: 350,
+    y: 500,
+    width: 100,
+    height: 40
+};
 
 /** Char + box positioning */
 // Char x pos

@@ -218,6 +218,9 @@ str_canvas.addEventListener('click', function(event) {
         gameState = 1; // go back to unselected state
         boxDeselect(targetedBox);
     }
+    // click submission button
+    
+    
 }, false);
 
 // Keyboard event listeners
@@ -236,7 +239,6 @@ document.addEventListener("keypress", function(event) {
 /**
  * REPOSITION THE FUNCTIONS BELOW ELSEWHERE
  */
-
 
 // replace char at index in string
 function replaceChar(index, char) {
