@@ -204,7 +204,7 @@ document.addEventListener("keypress", function(event) {
         console.log(event.keyCode);
         // render char inside box
         renderChar(targetedBox, event.keyCode);
-        userAttempt(targetedBox, keyCode);
+        userAttempt(targetedBox, event.keyCode);
     }
 }, false);
 
@@ -217,9 +217,9 @@ var userString = "";
 function initUserString() {
     var len = selectedPlaintext.length;
     for (var i = 0; i < len; i++) {
-        userString.concat(" ");
+        userString += " ";
     }
-    console.log("DEFAULT USER ATTEMPT STRING = " + userString);
+    console.log("DEFAULT USER ATTEMPT STRING = " + userString + "END");
 }
 
 // function to dynamically change the player's decryption attempt
@@ -227,5 +227,5 @@ function userAttempt(box, keyCode) {
     console.log("!!! RENDERING CHAR !!!");
     // convert keyCode to char
     var char = String.fromCharCode(keyCode);
-
+    userString
 }
