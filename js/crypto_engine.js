@@ -55,6 +55,23 @@ function setEncryptedStr() {
     return encrypted;
 }
 
+// store's users decryption attempts into a string
+function storeUserAttempt(keyCode) {
+    // convert keyCode to char
+    var char = String.fromCharCode(keyCode);
+    console.log("USER ATTEMPT = " + char);
+    var len = boxArray.length;
+    for (var i = 0; i < len; i++) {
+        // Compare XY values
+        if (boxArray[i].x == targetedBox.x && boxArray[i].y == targetedBox.y) {
+            console.log("MATCH FOUND. STRING POS = " + i);
+            userString = replaceChar(i, char);
+            break;
+        }
+    }
+    console.log("CURRENT ATTEMPT = " + userString + " END")
+}
+
 
 /**
  * GAME DATA FUNCTIONS
@@ -70,6 +87,17 @@ function resetData() {
     gameState = 0;
     encrypted = "";
 }
+
+// initialise user attempt string with spaces
+var userString = "";
+function initUserString() {
+    var len = selectedPlaintext.length;
+    for (var i = 0; i < len; i++) {
+        userString += " ";
+    }
+    console.log("DEFAULT USER ATTEMPT STRING = " + userString + "END");
+}
+
 
 
 /**
@@ -110,10 +138,7 @@ function isInsideBoxes(pos) {
             console.log("BOX FOUND");
             return boxArray[i];
         }
-        //return pos.x > boxArray[i].x && pos.x < boxArray[i].x+boxArray[i].width
-        //    && pos.y <  boxArray[i].y+boxArray[i].height && pos.y > boxArray[i].y
     }
-    //console.log("BOX NOT FOUND");
     return false;
 }
 
@@ -212,32 +237,6 @@ document.addEventListener("keypress", function(event) {
  * REPOSITION THE FUNCTIONS BELOW ELSEWHERE
  */
 
-// initialise user attempt string with spaces
-var userString = "";
-function initUserString() {
-    var len = selectedPlaintext.length;
-    for (var i = 0; i < len; i++) {
-        userString += " ";
-    }
-    console.log("DEFAULT USER ATTEMPT STRING = " + userString + "END");
-}
-
-// store's users decryption attempts
-function storeUserAttempt(keyCode) {
-    // convert keyCode to char
-    var char = String.fromCharCode(keyCode);
-    console.log("USER ATTEMPT = " + char);
-    var len = boxArray.length;
-    for (var i = 0; i < len; i++) {
-        // Compare XY values
-        if (boxArray[i].x == targetedBox.x && boxArray[i].y == targetedBox.y) {
-            console.log("MATCH FOUND. STRING POS = " + i);
-            userString = replaceChar(i, char);
-            break;
-        }
-    }
-    console.log("CURRENT ATTEMPT = " + userString + " END")
-}
 
 // replace char at index in string
 function replaceChar(index, char) {

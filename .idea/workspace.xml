@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/js/crypto_engine.js" description="selectBox(targetedBox);" line="177" />
+    <bookmark url="file://$PROJECT_DIR$/js/crypto_engine.js" description="selectBox(targetedBox);" line="202" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da1ae54a-9cf4-40a2-8226-dec51a15b6ea" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/crypto_engine.js" afterPath="$PROJECT_DIR$/js/crypto_engine.js" />
     </list>
     <ignored path="CryptoBase.iws" />
@@ -84,8 +83,8 @@
       <file leaf-file-name="crypto_engine.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/crypto_engine.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="239" column="1" selection-start-line="239" selection-start-column="1" selection-end-line="239" selection-end-column="1" />
+            <state relative-caret-position="-1812">
+              <caret line="57" column="50" selection-start-line="57" selection-start-column="50" selection-end-line="57" selection-end-column="50" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -368,12 +367,12 @@
       <workItem from="1494946893285" duration="26961000" />
       <workItem from="1495328152717" duration="6623000" />
       <workItem from="1495336849856" duration="2260000" />
-      <workItem from="1495344125564" duration="20131000" />
+      <workItem from="1495344125564" duration="20396000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122342000" />
+    <option name="totallyTimeSpent" value="122607000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="823" extended-state="6" />
@@ -765,8 +764,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/crypto_engine.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="239" column="1" selection-start-line="239" selection-start-column="1" selection-end-line="239" selection-end-column="1" />
+        <state relative-caret-position="-1812">
+          <caret line="57" column="50" selection-start-line="57" selection-start-column="50" selection-end-line="57" selection-end-column="50" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
