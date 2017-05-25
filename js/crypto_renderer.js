@@ -58,9 +58,8 @@ function render() {
 
     // trigger game over
     timeLimit--;
-    if (timeLimit == -1) {
+    if (timeLimit == -10000000000000) {
         console.log("8. Game over");
-        /**
         cancelAnimationFrame(render);
         // set gameState = menu
         gameState = 0;
@@ -76,7 +75,6 @@ function render() {
         resetData();
         // render menus
         renderMenu();
-         **/
     } else {
         requestAnimationFrame(render);
     }
@@ -125,7 +123,7 @@ function renderGame() {
     context.fillText("Time Remaining: " + timeLimit, 350, 40);
 
     // render go back to main menu button
-    str_context.fillStyle = "red";
+    str_context.fillStyle = "orange";
     str_context.fillRect(menuBtn.x, menuBtn.y, menuBtn.width, menuBtn.height);
     str_context.lineWidth = 2;
     str_context.stroke();

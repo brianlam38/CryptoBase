@@ -161,8 +161,6 @@ function initBoxArray(numBoxes) {
             x: bPos_x[i%22], y: bPos_y[row], width: boxW, height: boxH
         };
         // add box obj to array
-        console.log("PUSHING BOX #" + i);
-        //console.log("BOX_X = " + box.x + " // BOX_Y = " + box.y + " // WIDTH = " + box.width + " // HEIGHT = " + box.height);
         boxArray.push(box);
         // new row
         if (i == 21) {
@@ -221,7 +219,7 @@ str_canvas.addEventListener('click', function(event) {
     // clicked on main menu button
     if (isInside(mousePos, menuBtn) && (gameState != 0)) {
         console.log('clicked main menu button');
-        gameState = 0;
+        timeLimit = 0; // triggers game over state
         renderMenu();
     } else {
         console.log('clicked outside main menu button');
@@ -229,6 +227,11 @@ str_canvas.addEventListener('click', function(event) {
     // clicked submit button
     if (isInside(mousePos, submitBtn) && (gameState != 0)) {
         console.log("Clicked decryption button");
+        if(checkAnswer()) {
+            console.log("YOU WIN THE GAME!!!");
+        } else {
+            console.log("WRONG ANSWER LOL!!!");
+        }
     } else {
         console.log('clicked outside buttons');
     }
@@ -246,3 +249,22 @@ document.addEventListener("keypress", function(event) {
         storeUserAttempt(event.keyCode);
     }
 }, false);
+
+// Check if user input matches plaintext
+function checkAnswer() {
+    var len = selectedPlaintext.length;
+
+    // remove spaces from selectedPlaintext
+    var char = "";
+    for (var i = 0; i < len; i++) {
+        if (selectedPlaintext.charAt(i)) replaceChar(i, char);
+    }
+    console.log("PLAINTEXT = " + selectedPlaintext);
+    console.log("USERSTRING = " + selectedPlaintext);
+    var finalUserString = userString.toUpperCase();
+    if (finalUserString.localeCompare(selectedPlaintext)) {
+        return true;
+    } else {
+        return false;
+    }
+}

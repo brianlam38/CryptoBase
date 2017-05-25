@@ -15,7 +15,7 @@ var selectedPlaintext = "";
 // 0 = main menu, 1 = game running
 var gameState = 0;
 var defaultScore = 0;
-var defaultTimeLimit = 300;
+var defaultTimeLimit = 1000;
 var score = defaultScore;
 var timeLimit = defaultTimeLimit;
 // resulting encrypted string
