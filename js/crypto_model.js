@@ -24,11 +24,11 @@ var selectedPlaintext = "";
 var userString = "";
 
 /** Game data */
-// 0 = main menu, 1 = game running
+// 0 = main menu, 1 = game running, 2 = decryption attempt
 var gameState = 0;
 var startTime = 0;
 var defaultScore = 0;
-var defaultTimeLimit = 700;
+var defaultTimeLimit = 100;
 var score = defaultScore;
 var timeLimit = defaultTimeLimit;
 // resulting encrypted string

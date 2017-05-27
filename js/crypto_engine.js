@@ -186,7 +186,7 @@ function initBoxArray(numBoxes) {
 gameOver_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(gameOver_canvas, event);
     // clicked start game button
-    if (isInside(mousePos, replayBtn) && (gameState == 3)) {
+    if (isInside(mousePos, replayBtn)) {
         console.log("<< CLICKED REPLAY GAME >>");
         gameState = 1;
         render();
@@ -280,16 +280,16 @@ function checkAnswer() {
 
     // recreate string without extra spaces
     for (var i = 0; i < pLen; i++) {
-        var char = selectedPlaintext.charAt(i);
-        if (char != ' ') {
+        var pChar = selectedPlaintext.charAt(i);
+        if (pChar != ' ') {
             finalPlaintext += selectedPlaintext.charAt(i);
         }
     }
 
     // recreate string without extra spaces
     for (var i = 0; i < uLen; i++) {
-        var char = userString.charAt(i);
-        if (char != ' ') {
+        var uChar = userString.charAt(i);
+        if (uChar != ' ') {
             finalSubmit += userString.charAt(i);
         }
     }
