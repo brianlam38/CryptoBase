@@ -52,6 +52,9 @@ function render() {
         initUserString();
     }
 
+    // render time remaining bar
+    renderTimeRemaining();
+
     // render game layer objects
     renderGame();
 
@@ -59,7 +62,8 @@ function render() {
     str_context.drawImage(str_canvas, 0, 0);
 
     // trigger game over
-    timeLimit--;
+    timeLimit -= 0.2;
+    startTime += 0.2;
     if (timeLimit == -1) {
         console.log("8. Game over");
         cancelAnimationFrame(render);
@@ -118,11 +122,21 @@ function renderGame() {
     // render canvas
     context.drawImage(mainImage, 0, 0, 800, 600);
 
-    // render Score + Time Remaining
+    /* render score
     context.fillStyle = "white";
     context.font = "lighter 16px Verdana";
     context.fillText("Score: " + score, 180, 40);
-    context.fillText("Time Remaining: " + timeLimit, 350, 40);
+    */
+
+    // render go back to main menu button
+    str_context.fillStyle = "#262626";
+    str_context.fillRect(270, 110, 300, 40);
+    str_context.lineWidth = 2;
+    str_context.stroke();
+    // render time remaining text
+    str_context.fillStyle = "white";
+    str_context.font = "lighter 16px Verdana";
+    str_context.fillText("TIME REMAINING", 330, 140);
 
     // render go back to main menu button
     str_context.fillStyle = "red";
@@ -137,13 +151,13 @@ function renderGame() {
 
     // render questions background colour
     str_context.fillStyle = "#2A5DB0";
-    str_context.fillRect(40, 265, 700, 40);
+    str_context.fillRect(40, 285, 700, 40);
     str_context.lineWidth = 2;
     str_context.stroke();
     // render questions text
     str_context.fillStyle = "white";
     str_context.font = "lighter 15px Verdana";
-    str_context.fillText(selectedQuestion, 50, 292);
+    str_context.fillText(selectedQuestion, 50, 312);
 
     // render decrypt button
     str_context.fillStyle = "red";
@@ -184,6 +198,18 @@ function renderString(encrypted) {
 
     // mark as completed
     encryptComplete = true;
+}
+
+/** Renders remaining time graphic */
+function renderTimeRemaining() {
+    // render remaining time graphic
+    str_context.fillStyle = "red";
+    str_context.fillRect(40, 170, timeLimit, 80);
+    str_context.lineWidth = 2;
+    str_context.stroke();
+    // clear previous render
+    str_context.clearRect(40, 170, startTime, 80);
+    str_context.beginPath();
 }
 
 /** Clear all layers and resets paths to prevent overlap **/

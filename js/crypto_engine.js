@@ -70,6 +70,7 @@ function setEncryptedStr() {
 
 // Resets game data
 function resetData() {
+    startTime = 0;
     score = defaultScore;
     timeLimit = defaultTimeLimit;
     encryptComplete = false;
