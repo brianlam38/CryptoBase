@@ -206,10 +206,18 @@ function renderString(encrypted) {
 /** Renders remaining time graphic */
 function renderTimeRemaining() {
     // render remaining time graphic
-    str_context.fillStyle = "red";
-    str_context.fillRect(40, 170, timeLimit, 80);
-    str_context.lineWidth = 2;
-    str_context.stroke();
+    if (timeLimit < 700 && (timeLimit%2 == 0.1)) {
+        str_context.fillStyle = "red";
+        str_context.fillRect(40, 170, timeLimit, 80);
+        str_context.lineWidth = 2;
+        str_context.stroke();
+    } else {
+        str_context.fillStyle = "orange";
+        str_context.fillRect(40, 170, timeLimit, 80);
+        str_context.lineWidth = 2;
+        str_context.stroke();
+    }
+
     // clear previous render
     str_context.clearRect(40, 170, startTime, 80);
     str_context.beginPath();

@@ -28,7 +28,7 @@ var userString = "";
 var gameState = 0;
 var startTime = 0;
 var defaultScore = 0;
-var defaultTimeLimit = 100;
+var defaultTimeLimit = 700;
 var score = defaultScore;
 var timeLimit = defaultTimeLimit;
 // resulting encrypted string
