@@ -26,13 +26,15 @@
 
 /** Chooses then encrypts random string from dict with a shift cipher. */
 function setEncryptedStr() {
-    // choose random string from dictionary
-    var chooseStr = Math.floor(Math.random() * 100) % 3;
+    // choose random string from dictionary + grab question from HashMap
+    var chooseStr = Math.floor(Math.random() * 10) % 6;
     selectedPlaintext = plaintext[chooseStr];
+    selectedQuestion = map[selectedPlaintext];
+    console.log("QUESTION = " + selectedQuestion);
     console.log("PLAINTEXT = " + selectedPlaintext);
 
     // generate random shift value between 1-26
-    var shiftVal = (Math.floor(Math.random() * 100) + 1) % 26;
+    var shiftVal = Math.floor(Math.random() * 100) % 26;
     console.log("SHIFT VALUE = " + shiftVal);
 
     var encrypted = "";
@@ -55,22 +57,7 @@ function setEncryptedStr() {
     return encrypted;
 }
 
-// store's users decryption attempts into a string
-function storeUserAttempt(keyCode) {
-    // convert keyCode to char
-    var char = String.fromCharCode(keyCode);
-    console.log("USER ATTEMPT = " + char);
-    var len = boxArray.length;
-    for (var i = 0; i < len; i++) {
-        // Compare XY values
-        if (boxArray[i].x == targetedBox.x && boxArray[i].y == targetedBox.y) {
-            console.log("MATCH FOUND. STRING POS = " + i);
-            userString = replaceChar(i, char);
-            break;
-        }
-    }
-    console.log("CURRENT ATTEMPT = " + userString + " END")
-}
+
 
 
 /**
@@ -91,7 +78,6 @@ function resetData() {
 }
 
 // initialise user attempt string with spaces
-var userString = "";
 function initUserString() {
     var len = selectedPlaintext.length;
     for (var i = 0; i < len; i++) {
@@ -106,6 +92,33 @@ function replaceChar(index, char) {
         return userString;
     }
     return userString.substr(0,index) + char + userString.substr(index+1);
+}
+
+// store's users attempts into a string
+function storeUserAttempt(keyCode) {
+    // convert keyCode to char
+    var char = String.fromCharCode(keyCode);
+    console.log("USER ATTEMPT = " + char);
+    var len = boxArray.length;
+    for (var i = 0; i < len; i++) {
+        // Compare XY values
+        if (boxArray[i].x == targetedBox.x && boxArray[i].y == targetedBox.y) {
+            console.log("MATCH FOUND. STRING POS = " + i);
+            userString = replaceChar(i, char);
+            break;
+        }
+    }
+    console.log("CURRENT ATTEMPT = " + userString + " END")
+}
+
+// initialise HashMap for questions / answers
+function initQuestions() {
+    map[plaintext[0]] = questions[0];
+    map[plaintext[1]] = questions[1];
+    map[plaintext[2]] = questions[2];
+    map[plaintext[3]] = questions[3];
+    map[plaintext[4]] = questions[4];
+    map[plaintext[5]] = questions[5];
 }
 
 /**
@@ -252,17 +265,32 @@ document.addEventListener("keypress", function(event) {
 
 // Check if user input matches plaintext
 function checkAnswer() {
-    var len = selectedPlaintext.length;
+    var pLen = selectedPlaintext.length;
+    var uLen = userString.length;
 
-    // remove spaces from selectedPlaintext
-    var char = "";
-    for (var i = 0; i < len; i++) {
-        if (selectedPlaintext.charAt(i)) replaceChar(i, char);
+    var finalPlaintext = "";
+    var finalSubmit = "";
+
+    // recreate string without extra spaces
+    for (var i = 0; i < pLen; i++) {
+        var char = selectedPlaintext.charAt(i);
+        if (char != ' ') {
+            finalPlaintext += selectedPlaintext.charAt(i);
+        }
     }
-    console.log("PLAINTEXT = " + selectedPlaintext);
-    console.log("USERSTRING = " + selectedPlaintext);
-    var finalUserString = userString.toUpperCase();
-    if (finalUserString.localeCompare(selectedPlaintext)) {
+
+    // recreate string without extra spaces
+    for (var i = 0; i < uLen; i++) {
+        var char = userString.charAt(i);
+        if (char != ' ') {
+            finalSubmit += userString.charAt(i);
+        }
+    }
+
+    finalSubmit = finalSubmit.toUpperCase();
+    console.log("PLAINTEXT = " + finalPlaintext);
+    console.log("USERSTRING = " + finalSubmit);
+    if (finalSubmit.localeCompare(finalPlaintext) == 0) {
         return true;
     } else {
         return false;

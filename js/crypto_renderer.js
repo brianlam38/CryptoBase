@@ -41,6 +41,8 @@ function render() {
 
     // perform string encryption, rendering and initialise box array
     if (!encryptComplete) {
+        console.log("Initialising question bank");
+        initQuestions();
         console.log("5. Encrypt string");
         encrypted = setEncryptedStr();
         console.log("6. Render encrypted string");
@@ -58,7 +60,7 @@ function render() {
 
     // trigger game over
     timeLimit--;
-    if (timeLimit == -10000000000000) {
+    if (timeLimit == -1) {
         console.log("8. Game over");
         cancelAnimationFrame(render);
         // set gameState = menu
@@ -110,7 +112,7 @@ function renderMenu() {
 /**
  * PLAY GAME LOOP
  *
- * Continually updates the state of the game as the player makes changes.
+ * Renders static objects on the in-game canvas.
  */
 function renderGame() {
     // render canvas
@@ -123,7 +125,7 @@ function renderGame() {
     context.fillText("Time Remaining: " + timeLimit, 350, 40);
 
     // render go back to main menu button
-    str_context.fillStyle = "orange";
+    str_context.fillStyle = "red";
     str_context.fillRect(menuBtn.x, menuBtn.y, menuBtn.width, menuBtn.height);
     str_context.lineWidth = 2;
     str_context.stroke();
@@ -133,13 +135,22 @@ function renderGame() {
     str_context.font = "lighter 16px Verdana";
     str_context.fillText("Main Menu", 650, 40);
 
-    // render submit button
+    // render questions background colour
+    str_context.fillStyle = "#2A5DB0";
+    str_context.fillRect(40, 265, 700, 40);
+    str_context.lineWidth = 2;
+    str_context.stroke();
+    // render questions text
+    str_context.fillStyle = "white";
+    str_context.font = "lighter 15px Verdana";
+    str_context.fillText(selectedQuestion, 50, 292);
+
+    // render decrypt button
     str_context.fillStyle = "red";
     str_context.fillRect(submitBtn.x, submitBtn.y, submitBtn.width, submitBtn.height);
     str_context.lineWidth = 2;
     str_context.stroke();
-
-    // render start button text
+    // render decrypt button text
     str_context.fillStyle = "white";
     str_context.font = "lighter 16px Verdana";
     str_context.fillText("DECRYPT", 360, 525);
@@ -164,6 +175,7 @@ function renderString(encrypted) {
         // render char box
         str_context.rect(bPos_x[i%22], bPos_y[row], boxW, boxH);
         str_context.stroke();
+        // go to next row
         if (bPos_x[i%22] == 680) {
             console.log(bPos_x[i%22]);
             row++;
