@@ -28,7 +28,7 @@ var userString = "";
 var gameState = 0;
 var startTime = 0;
 var defaultScore = 0;
-var defaultTimeLimit = 700;
+var defaultTimeLimit = 100;
 var score = defaultScore;
 var timeLimit = defaultTimeLimit;
 // resulting encrypted string
@@ -54,6 +54,13 @@ var submitBtn = {
     x: 350,
     y: 500,
     width: 100,
+    height: 40
+};
+// Play again button
+var replayBtn = {
+    x: 310,
+    y: 400,
+    width: 160,
     height: 40
 };
 

@@ -74,7 +74,6 @@ function resetData() {
     score = defaultScore;
     timeLimit = defaultTimeLimit;
     encryptComplete = false;
-    gameState = 0;
     encrypted = "";
 }
 
@@ -183,6 +182,19 @@ function initBoxArray(numBoxes) {
     }
 }
 
+// Game over layer event listeners
+gameOver_canvas.addEventListener('click', function(event) {
+    var mousePos = getMousePos(gameOver_canvas, event);
+    // clicked start game button
+    if (isInside(mousePos, replayBtn) && (gameState == 3)) {
+        console.log("<< CLICKED REPLAY GAME >>");
+        gameState = 1;
+        render();
+    } else {
+        console.log('clicked outside replay game');
+    }
+}, false);
+
 // Main menu layer event listeners
 main_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(main_canvas, event);
@@ -195,11 +207,6 @@ main_canvas.addEventListener('click', function(event) {
         console.log('clicked outside start game');
     }
 }, false);
-
-/**
- * For individual object interactions, possibly use a HASMMAP to determine which
- * box object is selected and then you can perform functions from there.
- */
 
 // String layer event listeners
 var targetedBox;
@@ -233,7 +240,6 @@ str_canvas.addEventListener('click', function(event) {
     // clicked on main menu button
     if (isInside(mousePos, menuBtn) && (gameState != 0)) {
         console.log('clicked main menu button');
-        timeLimit = 0; // triggers game over state
         renderMenu();
     } else {
         console.log('clicked outside main menu button');

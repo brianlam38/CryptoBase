@@ -10,9 +10,11 @@
 // create canvas
 var main_canvas = document.getElementById("menu");
 var str_canvas = document.getElementById("str_canvas");
+var gameOver_canvas = document.getElementById("game_over");
 // create canvas ctx
 var context = main_canvas.getContext("2d");
 var str_context = str_canvas.getContext("2d");
+var over_context = gameOver_canvas.getContext("2d");
 
 // load image files
 mainImage = new Image();
@@ -36,6 +38,7 @@ function render() {
     console.log("Main render loop");
 
     // set string canvas as top layer
+    document.getElementById('game_over').style.zIndex = -1;
     document.getElementById('menu').style.zIndex = 0;
     document.getElementById('str_canvas').style.zIndex = 1;
 
@@ -54,22 +57,21 @@ function render() {
 
     // render time remaining bar
     renderTimeRemaining();
-
     // render game layer objects
     renderGame();
-
     // draw string layer
     str_context.drawImage(str_canvas, 0, 0);
 
     // trigger game over
     timeLimit -= 0.2;
     startTime += 0.2;
-    if (timeLimit == -1) {
+    if (timeLimit < 0) {
         console.log("8. Game over");
         cancelAnimationFrame(render);
         // set gameState = menu
-        gameState = 0;
+        gameState = 3;
         // set menu canvas as top layer
+        document.getElementById('game_over').style.zIndex = 2;
         document.getElementById('menu').style.zIndex = 1;
         document.getElementById('str_canvas').style.zIndex = 0;
         // clear previous render
@@ -79,8 +81,8 @@ function render() {
         boxArray = [];
         // reset values from prev game instances
         resetData();
-        // render menus
-        renderMenu();
+        // render game over canvas
+        renderGameOver();
     } else {
         requestAnimationFrame(render);
     }
@@ -93,6 +95,7 @@ function render() {
  */
 function renderMenu() {
     console.log("2. Render main menu");
+    gameState = 0;
 
     // draw background layer
     context.drawImage(mainImage, 0, 0, 800, 600);
@@ -210,6 +213,30 @@ function renderTimeRemaining() {
     // clear previous render
     str_context.clearRect(40, 170, startTime, 80);
     str_context.beginPath();
+}
+
+/**
+ * GAME OVER RENDER
+ *
+ * Renders the game over canvas.
+ */
+function renderGameOver() {
+    console.log("<< RENDER GAME OVER LAYER >>");
+
+    // draw background layer
+    over_context.drawImage(mainImage, 0, 0, 800, 600);
+
+    // render replay game
+    over_context.fillStyle = "red";
+    over_context.fillRect(replayBtn.x, replayBtn.y, replayBtn.width, replayBtn.height);
+    over_context.lineWidth = 2;
+
+    // render game over text
+    over_context.fillStyle = "white";
+    over_context.font = "lighter 22px Verdana";
+    over_context.fillText("YOU HAVE BEEN HACKED.", 250, 250);
+    over_context.fillText("GAME OVER.", 320, 330);
+    over_context.fillText("PLAY AGAIN", 323, 426);
 }
 
 /** Clear all layers and resets paths to prevent overlap **/
