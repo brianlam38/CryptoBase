@@ -125,12 +125,6 @@ function renderGame() {
     // render canvas
     context.drawImage(mainImage, 0, 0, 800, 600);
 
-    /* render score
-    context.fillStyle = "white";
-    context.font = "lighter 16px Verdana";
-    context.fillText("Score: " + score, 180, 40);
-    */
-
     // render go back to main menu button
     str_context.fillStyle = "#262626";
     str_context.fillRect(270, 110, 300, 40);
