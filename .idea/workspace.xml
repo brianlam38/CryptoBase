@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/js/crypto_engine.js" description="selectBox(targetedBox);" line="221" />
+    <bookmark url="file://$PROJECT_DIR$/js/crypto_engine.js" description="selectBox(targetedBox);" line="197" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="da1ae54a-9cf4-40a2-8226-dec51a15b6ea" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/crypto_model.js" afterPath="$PROJECT_DIR$/js/crypto_model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/crypto_renderer.js" afterPath="$PROJECT_DIR$/js/crypto_renderer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/crypto_engine.js" afterPath="$PROJECT_DIR$/js/crypto_engine.js" />
     </list>
     <ignored path="CryptoBase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="crypto_renderer.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="crypto_renderer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/crypto_renderer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="125" column="49" selection-start-line="125" selection-start-column="49" selection-end-line="125" selection-end-column="49" />
+            <state relative-caret-position="0">
+              <caret line="108" column="30" selection-start-line="108" selection-start-column="30" selection-end-line="108" selection-end-column="30" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -82,11 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="crypto_engine.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="crypto_engine.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/crypto_engine.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="248" column="49" selection-start-line="248" selection-start-column="49" selection-end-line="248" selection-end-column="49" />
+            <state relative-caret-position="564">
+              <caret line="118" column="16" selection-start-line="118" selection-start-column="16" selection-end-line="118" selection-end-column="16" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -141,9 +139,9 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/css/crypto.css" />
         <option value="$PROJECT_DIR$/caesar.html" />
-        <option value="$PROJECT_DIR$/js/crypto_engine.js" />
         <option value="$PROJECT_DIR$/js/crypto_renderer.js" />
         <option value="$PROJECT_DIR$/js/crypto_model.js" />
+        <option value="$PROJECT_DIR$/js/crypto_engine.js" />
       </list>
     </option>
   </component>
@@ -369,12 +367,12 @@
       <workItem from="1494946893285" duration="26961000" />
       <workItem from="1495328152717" duration="6623000" />
       <workItem from="1495336849856" duration="2260000" />
-      <workItem from="1495344125564" duration="44838000" />
+      <workItem from="1495344125564" duration="44978000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147049000" />
+    <option name="totallyTimeSpent" value="147189000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="823" extended-state="0" />
@@ -746,16 +744,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/crypto_engine.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="248" column="49" selection-start-line="248" selection-start-column="49" selection-end-line="248" selection-end-column="49" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/crypto_model.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -768,8 +756,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/crypto_renderer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="125" column="49" selection-start-line="125" selection-start-column="49" selection-end-line="125" selection-end-column="49" />
+        <state relative-caret-position="0">
+          <caret line="108" column="30" selection-start-line="108" selection-start-column="30" selection-end-line="108" selection-end-column="30" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/crypto_engine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="564">
+          <caret line="118" column="16" selection-start-line="118" selection-start-column="16" selection-end-line="118" selection-end-column="16" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

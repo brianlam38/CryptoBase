@@ -5,19 +5,6 @@
  * Crypto_engine.js represents the CONTROLLER.
  */
 
-// TO DO
-// Encrypted char objects
-// - Write a function, so that for each 26 ascii/key char is pressed, it will render the certain fillText
-// Create the encrypted string canvas
-// - Set the rectangular box areas for each character that needs to be decrypted
-// - Possibly each word will be represented on a new row
-// - Row width > 15 characters (should be more than length of most words)
-// Store a dictionary of plaintext string
-// Possibly hashmap decrypted string to see if it matches plaintext strings.
-// OR
-// If too difficult to hashmap whole string, hashmap each individual char. If all chars hashmap != null
-// then initiate end game state.
-
 /**
  * ENCRYPTION / DECRYPTION FUNCTIONS
  *
@@ -58,14 +45,14 @@ function setEncryptedStr() {
 }
 
 
-
-
 /**
  * GAME DATA CHANGING FUNCTIONS
  *
  * resetData()
  * initUserString()
  * replaceChar()
+ * storeUserAttempt()
+ * initQuestions()
  */
 
 // Resets game data
@@ -127,7 +114,9 @@ function initQuestions() {
  * getMousePos(canvas, event)
  * isInside(pos, object)
  * main_canvas.addEventListener('click',function())
- * str_canvas.addEventListener('click',function())
+ * str_canvas.addEventListener('click', function())
+ * gameOver_canvas.addEventListener('click', function())
+ * checkAnswer()
  */
 
 /// Get mouse xy position on canvas
@@ -181,19 +170,6 @@ function initBoxArray(numBoxes) {
         }
     }
 }
-
-// Game over layer event listeners
-gameOver_canvas.addEventListener('click', function(event) {
-    var mousePos = getMousePos(gameOver_canvas, event);
-    // clicked start game button
-    if (isInside(mousePos, replayBtn)) {
-        console.log("<< CLICKED REPLAY GAME >>");
-        gameState = 1;
-        render();
-    } else {
-        console.log('clicked outside replay game');
-    }
-}, false);
 
 // Main menu layer event listeners
 main_canvas.addEventListener('click', function(event) {
@@ -270,6 +246,19 @@ document.addEventListener("keypress", function(event) {
     }
 }, false);
 
+// Game over layer event listeners
+gameOver_canvas.addEventListener('click', function(event) {
+    var mousePos = getMousePos(gameOver_canvas, event);
+    // clicked start game button
+    if (isInside(mousePos, replayBtn)) {
+        console.log("<< CLICKED REPLAY GAME >>");
+        gameState = 1;
+        render();
+    } else {
+        console.log('clicked outside replay game');
+    }
+}, false);
+
 // Check if user input matches plaintext
 function checkAnswer() {
     var pLen = selectedPlaintext.length;
@@ -285,7 +274,6 @@ function checkAnswer() {
             finalPlaintext += selectedPlaintext.charAt(i);
         }
     }
-
     // recreate string without extra spaces
     for (var i = 0; i < uLen; i++) {
         var uChar = userString.charAt(i);
@@ -297,9 +285,6 @@ function checkAnswer() {
     finalSubmit = finalSubmit.toUpperCase();
     console.log("PLAINTEXT = " + finalPlaintext);
     console.log("USERSTRING = " + finalSubmit);
-    if (finalSubmit.localeCompare(finalPlaintext) == 0) {
-        return true;
-    } else {
-        return false;
-    }
+    if (finalSubmit.localeCompare(finalPlaintext) == 0) return true;
+    return false;
 }
