@@ -219,8 +219,11 @@ str_canvas.addEventListener('click', function(event) {
     if (isInside(mousePos, submitBtn) && (gameState != 0)) {
         console.log("Clicked decryption button");
         if(checkAnswer()) {
+            // show that the anwer is correct
             console.log("YOU WIN THE GAME!!!");
+            gameWon = true;
         } else {
+            // show that the answer is incorrect
             console.log("WRONG ANSWER LOL!!!");
         }
     }

@@ -68,7 +68,7 @@ function render() {
         startTime += 0.2;
 
         // game over
-        if (timeLimit < 0) {
+        if (timeLimit < 0 || gameWon) {
             console.log("=================== GAME OVER =================== ");
             // cancel main render
             cancelAnimationFrame(render);
@@ -309,8 +309,8 @@ function renderGameOver() {
     } else {
         over_context.fillStyle = "white";
         over_context.font = "lighter 22px Verdana";
-        over_context.fillText("YOU HAVE BEEN HACKED.", 250, 250);
-        over_context.fillText("GAME OVER.", 320, 330);
+        over_context.fillText("YOU WIN!", 330, 250);
+        over_context.fillText("DECRYPTION SUCCESSFUL.", 240, 330);
         over_context.fillText("PLAY AGAIN", 323, 426);
     }
 }

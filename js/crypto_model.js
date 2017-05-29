@@ -8,13 +8,13 @@
 /** Encryption / Decryption data */
 var map = {};
 var questions = ["A _______ substitution cipher is a more generalised term for the Caesar Cipher.",
-                 "A special and case of the Caesar Cipher is the _____ cipher.",
+                 "A special and case of the Caesar Cipher is the ___ __________ cipher.",
                  "A method used to break the Caesar Cipher is called ______ ______.",
                  "Five most frequently occurring letters in English text, in order, are _ _ _ _ _.",
                  "Writing out the result of all possible shifts is an example of a ____ ____ ____.",
                  "The Caesar cipher is named after _____ _____."];
 var plaintext = ["MONOALPHABETIC",
-                 "ROT13",
+                 "ROT THIRTEEN",
                  "FREQUENCY ANALYSIS",
                  "E T A O I N",
                  "BRUTE FORCE ATTACK",
