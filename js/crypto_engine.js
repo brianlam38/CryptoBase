@@ -58,10 +58,10 @@ function setEncryptedStr() {
 // Resets game data
 function resetData() {
     startTime = 0;
-    score = defaultScore;
     timeLimit = defaultTimeLimit;
     encryptComplete = false;
     encrypted = "";
+    boxArray = [];
 }
 
 // initialise user attempt string with spaces
@@ -135,10 +135,6 @@ function isInside(pos, object) {
 }
 
 // Check if mouse is inside any box
-/**
- * TO DO: RETURN THE CLICKED BOX OBJECT.
- * ASSIGN THIS OBJECT TO THE EVENT LISTENER, SO RECT CAN BE TARGETED AND CHANGES RENDERED
- */
 function isInsideBoxes(pos) {
     var len = boxArray.length;
     for (var i = 0; i < len; i++) {
@@ -196,8 +192,6 @@ str_canvas.addEventListener('click', function(event) {
         gameState = 2;  // go to selected state
         prevBox = targetedBox;
         boxSelect(targetedBox);
-    } else {
-        console.log('== clicked outside a box ==');
     }
     // activate clicked box + deactivate prev box
     if (isInsideBoxes(mousePos) && !isInside(mousePos, prevBox) && gameState == 2){
@@ -214,9 +208,10 @@ str_canvas.addEventListener('click', function(event) {
         boxDeselect(targetedBox);
     }
     // clicked on main menu button
-    if (isInside(mousePos, menuBtn) && (gameState != 0)) {
+    if (isInside(mousePos, menuBtn) && (gameState == 1)) {
         console.log('clicked main menu button');
-        renderMenu();
+        clickedMainMenu = true;
+        goToMenu();
     } else {
         console.log('clicked outside main menu button');
     }
@@ -228,8 +223,6 @@ str_canvas.addEventListener('click', function(event) {
         } else {
             console.log("WRONG ANSWER LOL!!!");
         }
-    } else {
-        console.log('clicked outside buttons');
     }
 }, false);
 

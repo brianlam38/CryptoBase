@@ -5,12 +5,15 @@
  * Crypto_renderer.js represents the VIEW.
  */
 
+/**
+ *  Image / DOM loading
+ */
 
-/** Set up menu and game canvas layers **/
 // create canvas
 var main_canvas = document.getElementById("menu");
 var str_canvas = document.getElementById("str_canvas");
 var gameOver_canvas = document.getElementById("game_over");
+
 // create canvas ctx
 var context = main_canvas.getContext("2d");
 var str_context = str_canvas.getContext("2d");
@@ -26,14 +29,16 @@ textImage.onload = checkReady;
 mainImage.src = "/CryptoBase/images/canvas1.png";
 textImage.src = "/CryptoBase/images/canvasText.png";
 
-/** Performs ready check for image assets then runs main render loop */
+// Performs ready check for image assets then runs main render loop
 function checkReady() {
     console.log("1. Images ready");
     this.ready = true;
     renderMenu();
 }
 
-/** Main render loop **/
+/**
+ * MAIN WRAPPER FUNCTION
+ */
 function render() {
     console.log("Main render loop");
 
@@ -55,47 +60,51 @@ function render() {
         initUserString();
     }
 
-    // render time remaining bar
+    // render time remaining bar, string layer objects
     renderTimeRemaining();
-    // render game layer objects
     renderGame();
-    // draw string layer
     str_context.drawImage(str_canvas, 0, 0);
 
-    // trigger game over
+    // track if main menu btn has been clicked
+    if (clickedMainMenu == true) {
+        cancelAnimationFrame(render);
+    }
+
+    // update time limit
     timeLimit -= 0.2;
     startTime += 0.2;
+
+    // game over
     if (timeLimit < 0) {
         console.log("8. Game over");
+        // cancel main render
         cancelAnimationFrame(render);
-        // set gameState = menu
+        // set gameState = game over
         gameState = 3;
-        // set menu canvas as top layer
+        // set game over canvas as top layer
         document.getElementById('game_over').style.zIndex = 2;
         document.getElementById('menu').style.zIndex = 1;
         document.getElementById('str_canvas').style.zIndex = 0;
-        // clear previous render
-        console.log("9. Clear canvas, boxArray and reset game data");
+        // clear data
         clearCanvas();
-        // clear boxArray
-        boxArray = [];
-        // reset values from prev game instances
         resetData();
-        // render game over canvas
         renderGameOver();
+    // continue
     } else {
         requestAnimationFrame(render);
     }
 }
 
 /**
- * MENU RENDER
+ * MENU RENDER FUNCTIONS
  *
- * Renders the main menu objects.
+ * renderMenu()
+ * goToMenu()
+ *
  */
+// Renders the main menu text / objects
 function renderMenu() {
     console.log("2. Render main menu");
-    gameState = 0;
 
     // draw background layer
     context.drawImage(mainImage, 0, 0, 800, 600);
@@ -116,11 +125,37 @@ function renderMenu() {
     context.fillText("START", 372, 425)
 }
 
+// Resets data and re-arrange canvas layers so menu is the top layer
+function goToMenu() {
+    console.log("<< GOING BACK TO MENU >>");
+    cancelAnimationFrame(render);
+    // set gameState = menu
+    gameState = 0;
+    // set menu canvas as top layer
+    document.getElementById('menu').style.zIndex = 2;
+    document.getElementById('str_canvas').style.zIndex = 1;
+    document.getElementById('game_over').style.zIndex = 0;
+
+    // clear previous render
+    clearCanvas();
+    // reset values from prev game instances
+    resetData();
+    // render game over canvas
+    renderMenu();
+}
+
 /**
- * PLAY GAME LOOP
+ * IN-GAME RENDER FUNCTIONS
  *
- * Renders static objects on the in-game canvas.
+ * renderGame() -> Main in-game render function
+ * renderString() -> Render encrypted string to canvas
+ * renderTimeRemaining() -> Render time remaining bar
+ *
+ * boxSelect() -> activate selected box / yellow border
+ * boxDeselect() -> de-activate selected box / grey border
+ * renderChar() -> renders user's char-by-char decryption attempt
  */
+// Renders all in-game static text / objects
 function renderGame() {
     // render canvas
     context.drawImage(mainImage, 0, 0, 800, 600);
@@ -167,7 +202,7 @@ function renderGame() {
     str_context.fillText("DECRYPT", 360, 525);
 }
 
-/** renders a pre-encrypted text to the canvas */
+// Renders pre-encrypted text to the canvas
 var encryptComplete = false;
 function renderString(encrypted) {
     var row = 0;
@@ -192,12 +227,11 @@ function renderString(encrypted) {
             row++;
         }
     }
-
     // mark as completed
     encryptComplete = true;
 }
 
-/** Renders remaining time graphic */
+// Renders remaining time graphic
 function renderTimeRemaining() {
     // render remaining time graphic
     if (timeLimit < 700 && (timeLimit%2 == 0.1)) {
@@ -217,39 +251,6 @@ function renderTimeRemaining() {
     str_context.beginPath();
 }
 
-/**
- * GAME OVER RENDER
- *
- * Renders the game over canvas.
- */
-function renderGameOver() {
-    console.log("<< RENDER GAME OVER LAYER >>");
-
-    // draw background layer
-    over_context.drawImage(mainImage, 0, 0, 800, 600);
-
-    // render replay game
-    over_context.fillStyle = "red";
-    over_context.fillRect(replayBtn.x, replayBtn.y, replayBtn.width, replayBtn.height);
-    over_context.lineWidth = 2;
-
-    // render game over text
-    over_context.fillStyle = "white";
-    over_context.font = "lighter 22px Verdana";
-    over_context.fillText("YOU HAVE BEEN HACKED.", 250, 250);
-    over_context.fillText("GAME OVER.", 320, 330);
-    over_context.fillText("PLAY AGAIN", 323, 426);
-}
-
-/** Clear all layers and resets paths to prevent overlap **/
-function clearCanvas() {
-    str_context.clearRect(0, 0, main_canvas.width, main_canvas.height);
-    context.clearRect(0, 0, main_canvas.width, main_canvas.height);
-    str_context.beginPath();
-    context.beginPath();
-}
-
-/** Render interactions with game **/
 // activate selected box
 function boxSelect(box) {
     // drawing box selected
@@ -270,7 +271,7 @@ function boxDeselect(box) {
     str_context.stroke();
 }
 
-// render char
+// render user's char-by-char decryption attempt
 function renderChar(box, keyCode) {
     console.log("!!! RENDERING CHAR !!!");
     // convert keyCode to char
@@ -284,3 +285,43 @@ function renderChar(box, keyCode) {
     str_context.font = "16px Verdana";
     str_context.fillText(keyChar, box.x+4.5, box.y+21.5);
 }
+
+/**
+ * GAME OVER RENDER FUNCTIONS
+ *
+ * renderGameOver() -> Renders game over canvas
+ */
+// Renders game over canvas
+function renderGameOver() {
+    console.log("<< RENDER GAME OVER LAYER >>");
+
+    // draw background layer
+    over_context.drawImage(mainImage, 0, 0, 800, 600);
+
+    // render replay game
+    over_context.fillStyle = "red";
+    over_context.fillRect(replayBtn.x, replayBtn.y, replayBtn.width, replayBtn.height);
+    over_context.lineWidth = 2;
+
+    // render game over text
+    over_context.fillStyle = "white";
+    over_context.font = "lighter 22px Verdana";
+    over_context.fillText("YOU HAVE BEEN HACKED.", 250, 250);
+    over_context.fillText("GAME OVER.", 320, 330);
+    over_context.fillText("PLAY AGAIN", 323, 426);
+}
+
+/**
+ * UNIVERSAL RENDER FUNCTIONS
+ *
+ * clearCanvas()
+ */
+
+// Clear all layers and resets paths to prevent overlap
+function clearCanvas() {
+    str_context.clearRect(0, 0, main_canvas.width, main_canvas.height);
+    context.clearRect(0, 0, main_canvas.width, main_canvas.height);
+    str_context.beginPath();
+    context.beginPath();
+}
+
