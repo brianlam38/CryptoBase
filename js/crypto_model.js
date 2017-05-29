@@ -29,7 +29,8 @@ var gameState = 0;
 var startTime = 0;
 var defaultTimeLimit = 100;
 var timeLimit = defaultTimeLimit;
-var clickedMainMenu = true;
+var clickedMainMenu = false;
+var gameWon = false;
 // resulting encrypted string
 var encrypted = "";
 

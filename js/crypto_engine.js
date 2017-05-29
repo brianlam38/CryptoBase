@@ -85,17 +85,17 @@ function replaceChar(index, char) {
 function storeUserAttempt(keyCode) {
     // convert keyCode to char
     var char = String.fromCharCode(keyCode);
-    console.log("USER ATTEMPT = " + char);
     var len = boxArray.length;
     for (var i = 0; i < len; i++) {
-        // Compare XY values
+        // Find appropriate box pos, insert char into box
         if (boxArray[i].x == targetedBox.x && boxArray[i].y == targetedBox.y) {
-            console.log("MATCH FOUND. STRING POS = " + i);
             userString = replaceChar(i, char);
             break;
         }
     }
-    console.log("CURRENT ATTEMPT = " + userString + " END")
+    console.log("++++++++++++++++++++++++++++++++++++++++++");
+    console.log("CURRENT ATTEMPT = " + userString + " END");
+    console.log("++++++++++++++++++++++++++++++++++++++++++");
 }
 
 // initialise HashMap for questions / answers
@@ -173,6 +173,7 @@ main_canvas.addEventListener('click', function(event) {
     // clicked start game button
     if (isInside(mousePos, startBtn) && (gameState == 0)) {
         console.log("3. Clicked start game");
+        clickedMainMenu = false;
         gameState = 1;
         render();
     } else {
@@ -211,7 +212,6 @@ str_canvas.addEventListener('click', function(event) {
     if (isInside(mousePos, menuBtn) && (gameState == 1)) {
         console.log('clicked main menu button');
         clickedMainMenu = true;
-        goToMenu();
     } else {
         console.log('clicked outside main menu button');
     }
@@ -242,7 +242,7 @@ document.addEventListener("keypress", function(event) {
 // Game over layer event listeners
 gameOver_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(gameOver_canvas, event);
-    // clicked start game button
+    // clicked replay game button
     if (isInside(mousePos, replayBtn)) {
         console.log("<< CLICKED REPLAY GAME >>");
         gameState = 1;

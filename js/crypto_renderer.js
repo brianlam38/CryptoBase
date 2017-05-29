@@ -21,13 +21,9 @@ var over_context = gameOver_canvas.getContext("2d");
 
 // load image files
 mainImage = new Image();
-textImage = new Image();
 mainImage.ready = false;
-textImage.ready = false;
 mainImage.onload = checkReady;  // .onload executes a script after page loads
-textImage.onload = checkReady;
 mainImage.src = "/CryptoBase/images/canvas1.png";
-textImage.src = "/CryptoBase/images/canvasText.png";
 
 // Performs ready check for image assets then runs main render loop
 function checkReady() {
@@ -40,59 +36,59 @@ function checkReady() {
  * MAIN WRAPPER FUNCTION
  */
 function render() {
-    console.log("Main render loop");
-
-    // set string canvas as top layer
-    document.getElementById('game_over').style.zIndex = -1;
-    document.getElementById('menu').style.zIndex = 0;
-    document.getElementById('str_canvas').style.zIndex = 1;
-
-    // perform string encryption, rendering and initialise box array
-    if (!encryptComplete) {
-        console.log("Initialising question bank");
-        initQuestions();
-        console.log("5. Encrypt string");
-        encrypted = setEncryptedStr();
-        console.log("6. Render encrypted string");
-        renderString(encrypted);
-        console.log("7. Initialise box array");
-        initBoxArray(selectedPlaintext.length);
-        initUserString();
-    }
-
-    // render time remaining bar, string layer objects
-    renderTimeRemaining();
-    renderGame();
-    str_context.drawImage(str_canvas, 0, 0);
+    console.log("=================== WRAPPER FUNCTION =================== ");
 
     // track if main menu btn has been clicked
     if (clickedMainMenu == true) {
         cancelAnimationFrame(render);
-    }
-
-    // update time limit
-    timeLimit -= 0.2;
-    startTime += 0.2;
-
-    // game over
-    if (timeLimit < 0) {
-        console.log("8. Game over");
-        // cancel main render
-        cancelAnimationFrame(render);
-        // set gameState = game over
-        gameState = 3;
-        // set game over canvas as top layer
-        document.getElementById('game_over').style.zIndex = 2;
-        document.getElementById('menu').style.zIndex = 1;
-        document.getElementById('str_canvas').style.zIndex = 0;
-        // clear data
-        clearCanvas();
-        resetData();
-        renderGameOver();
-    // continue
+        goToMenu();
     } else {
-        requestAnimationFrame(render);
+        // set string canvas as top layer
+        document.getElementById('game_over').style.zIndex = -1;
+        document.getElementById('menu').style.zIndex = 0;
+        document.getElementById('str_canvas').style.zIndex = 1;
+
+        // perform string encryption, rendering and initialise box array
+        if (!encryptComplete) {
+            console.log("=================== ENCRYPTION FUNCTIONS =================== ");
+            initQuestions();
+            encrypted = setEncryptedStr();
+            renderString(encrypted);
+            initBoxArray(selectedPlaintext.length);
+            initUserString();
+        }
+
+        // render time remaining bar, string layer objects
+        renderTimeRemaining();
+        renderGame();
+        str_context.drawImage(str_canvas, 0, 0);
+
+        // update time limit
+        timeLimit -= 0.2;
+        startTime += 0.2;
+
+        // game over
+        if (timeLimit < 0) {
+            console.log("=================== GAME OVER =================== ");
+            // cancel main render
+            cancelAnimationFrame(render);
+            // set gameState = game over
+            gameState = 3;
+            // set game over canvas as top layer
+            document.getElementById('game_over').style.zIndex = 2;
+            document.getElementById('menu').style.zIndex = 1;
+            document.getElementById('str_canvas').style.zIndex = 0;
+            // clear data
+            clearCanvas();
+            resetData();
+            renderGameOver();
+            // continue
+        } else {
+            requestAnimationFrame(render);
+        }
     }
+
+
 }
 
 /**
@@ -104,31 +100,31 @@ function render() {
  */
 // Renders the main menu text / objects
 function renderMenu() {
-    console.log("2. Render main menu");
+    console.log("=================== MAIN MENU =================== ");
 
     // draw background layer
     context.drawImage(mainImage, 0, 0, 800, 600);
 
     // render menu text
+    context.fillStyle = "white";
+    context.font = "lighter 16px Verdana";
     context.fillText("SYSTEM ALERT:", 335, 170);
     context.fillText("You are being hacked!", 310, 260);
     context.fillText("Decrypt the string into plaintext before your system is broken into.", 140, 320);
-
     // render start btn
     context.fillStyle = "red";
     context.fillRect(startBtn.x, startBtn.y, startBtn.width, startBtn.height);
     context.lineWidth = 2;
-
     // render start btn text
     context.fillStyle = "white";
     context.font = "lighter 16px Verdana";
     context.fillText("START", 372, 425)
+
 }
 
 // Resets data and re-arrange canvas layers so menu is the top layer
 function goToMenu() {
-    console.log("<< GOING BACK TO MENU >>");
-    cancelAnimationFrame(render);
+    console.log("<<<<<<<<<<<<<<<<<< GOING BACK TO MENU >>>>>>>>>>>>>>>>>>>>");
     // set gameState = menu
     gameState = 0;
     // set menu canvas as top layer
@@ -273,10 +269,9 @@ function boxDeselect(box) {
 
 // render user's char-by-char decryption attempt
 function renderChar(box, keyCode) {
-    console.log("!!! RENDERING CHAR !!!");
     // convert keyCode to char
     var keyChar = String.fromCharCode(keyCode);
-    console.log(keyChar);
+    console.log("<<<<<<< CHAR = " + keyChar + " >>>>>>>>");
     // clearing prev char
     str_context.clearRect(box.x+1, box.y+1, boxW-2, boxH-2);    // include clearing padding
     //str_context.beginPath();
@@ -293,22 +288,31 @@ function renderChar(box, keyCode) {
  */
 // Renders game over canvas
 function renderGameOver() {
-    console.log("<< RENDER GAME OVER LAYER >>");
+    console.log("===================  GAME OVER =================== ");
 
     // draw background layer
     over_context.drawImage(mainImage, 0, 0, 800, 600);
 
-    // render replay game
+    // render replay game button
     over_context.fillStyle = "red";
     over_context.fillRect(replayBtn.x, replayBtn.y, replayBtn.width, replayBtn.height);
     over_context.lineWidth = 2;
 
-    // render game over text
-    over_context.fillStyle = "white";
-    over_context.font = "lighter 22px Verdana";
-    over_context.fillText("YOU HAVE BEEN HACKED.", 250, 250);
-    over_context.fillText("GAME OVER.", 320, 330);
-    over_context.fillText("PLAY AGAIN", 323, 426);
+    // game lost = render LOSE GAME text
+    if (!gameWon) {
+        over_context.fillStyle = "white";
+        over_context.font = "lighter 22px Verdana";
+        over_context.fillText("YOU HAVE BEEN HACKED.", 250, 250);
+        over_context.fillText("GAME OVER.", 320, 330);
+        over_context.fillText("PLAY AGAIN", 323, 426);
+    // game won = render WIN GAME text
+    } else {
+        over_context.fillStyle = "white";
+        over_context.font = "lighter 22px Verdana";
+        over_context.fillText("YOU HAVE BEEN HACKED.", 250, 250);
+        over_context.fillText("GAME OVER.", 320, 330);
+        over_context.fillText("PLAY AGAIN", 323, 426);
+    }
 }
 
 /**
