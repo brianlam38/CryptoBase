@@ -8,11 +8,11 @@
 /**
  * ENCRYPTION / DECRYPTION FUNCTIONS
  *
- * setEncryptedStr()
+ * caesarEncrypt()
  */
 
 /** Chooses then encrypts random string from dict with a shift cipher. */
-function setEncryptedStr() {
+function caesarEncrypt() {
     // choose random string from dictionary + grab question from HashMap
     var chooseStr = Math.floor(Math.random() * 10) % 6;
     selectedPlaintext = plaintext[chooseStr];
@@ -39,6 +39,36 @@ function setEncryptedStr() {
         encrypted += String.fromCharCode(charCode);
     }
 
+    // return encrypted string
+    console.log("ENCRYPTED STRING = " + encrypted);
+    return encrypted;
+}
+
+function vigenereEncrypt() {
+    // choose random string from dictionary + grab question from HashMap
+    var chooseStr = Math.floor(Math.random() * 10) % 6;
+    selectedPlaintext = plaintext[chooseStr];
+    selectedQuestion = map[selectedPlaintext];
+    console.log("QUESTION = " + selectedQuestion);
+    console.log("PLAINTEXT = " + selectedPlaintext);
+
+    var encrypted = "";
+    var charCode = 0;
+    var len = selectedPlaintext.length;
+
+    // convert plaintext -> encrypted
+    for (var i = 0; i < len; i++) {
+        // for each char, generate random shift value between 1-26
+        var shiftVal = Math.floor(Math.random() * 100) % 26;
+        console.log("SHIFT VALUE = " + shiftVal);
+        // add space to encrypted
+        if (selectedPlaintext.charAt(i) == " ") {
+            encrypted += selectedPlaintext.charAt(i);
+            continue;
+        }
+        charCode = (selectedPlaintext.charCodeAt(i) + shiftVal) % 26 + 65;
+        encrypted += String.fromCharCode(charCode);
+    }
     // return encrypted string
     console.log("ENCRYPTED STRING = " + encrypted);
     return encrypted;
@@ -171,7 +201,7 @@ function initBoxArray(numBoxes) {
 main_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(main_canvas, event);
     // clicked start game button
-    if (isInside(mousePos, startBtn) && (gameState == 0)) {
+    if (isInside(mousePos, easyBtn) && (gameState == 0)) {
         console.log("3. Clicked start game");
         clickedMainMenu = false;
         gameState = 1;

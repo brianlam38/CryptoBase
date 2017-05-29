@@ -30,18 +30,34 @@ var startTime = 0;
 var defaultTimeLimit = 100;
 var timeLimit = defaultTimeLimit;
 var clickedMainMenu = false;
+var gameMode = "";
 var gameWon = false;
 // resulting encrypted string
 var encrypted = "";
 
 /** Button objects */
 // Start button pos + sizing
-var startBtn = {
-    x: 350,
+var easyBtn = {
+    x: 280,
     y: 400,
     width: 100,
     height: 40
 };
+// Difficult mode
+var hardBtn = {
+    x: 420,
+    y: 400,
+    width: 100,
+    height: 40
+};
+// Instructions button
+var instructionsBtn = {
+    x: 320,
+    y: 480,
+    width: 155,
+    height: 40
+};
+
 // Menu button pos + sizing
 var menuBtn = {
     x: 640,

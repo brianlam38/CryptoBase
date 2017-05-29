@@ -52,7 +52,7 @@ function render() {
         if (!encryptComplete) {
             console.log("=================== ENCRYPTION FUNCTIONS =================== ");
             initQuestions();
-            encrypted = setEncryptedStr();
+            encrypted = caesarEncrypt();
             renderString(encrypted);
             initBoxArray(selectedPlaintext.length);
             initUserString();
@@ -111,15 +111,33 @@ function renderMenu() {
     context.fillText("SYSTEM ALERT:", 335, 170);
     context.fillText("You are being hacked!", 310, 260);
     context.fillText("Decrypt the string into plaintext before your system is broken into.", 140, 320);
-    // render start btn
-    context.fillStyle = "red";
-    context.fillRect(startBtn.x, startBtn.y, startBtn.width, startBtn.height);
+
+    // render easy start btn
+    context.fillStyle = "green";
+    context.fillRect(easyBtn.x, easyBtn.y, easyBtn.width, easyBtn.height);
     context.lineWidth = 2;
-    // render start btn text
+    // render easy start btn text
     context.fillStyle = "white";
     context.font = "lighter 16px Verdana";
-    context.fillText("START", 372, 425)
+    context.fillText("EASY", easyBtn.x+28, 425);
 
+    // render hard start btn
+    context.fillStyle = "orange";
+    context.fillRect(hardBtn.x, hardBtn.y, hardBtn.width, hardBtn.height);
+    context.lineWidth = 2;
+    // render hard start btn text
+    context.fillStyle = "white";
+    context.font = "lighter 16px Verdana";
+    context.fillText("HARD", hardBtn.x+28, 425);
+
+    // render instructions btn
+    context.fillStyle = "red";
+    context.fillRect(instructionsBtn.x, instructionsBtn.y, instructionsBtn.width, instructionsBtn.height);
+    context.lineWidth = 2;
+    // render instructions btn text
+    context.fillStyle = "white";
+    context.font = "lighter 16px Verdana";
+    context.fillText("INSTRUCTIONS", instructionsBtn.x+15, instructionsBtn.y+25);
 }
 
 // Resets data and re-arrange canvas layers so menu is the top layer
