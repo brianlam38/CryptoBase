@@ -23,7 +23,7 @@ var selectedQuestion = "";
 var selectedPlaintext = "";
 var userString = "";
 
-/** Game data */
+/** Global game data */
 // 0 = main menu, 1 = game running, 2 = decryption attempt
 var gameState = 0;
 var startTime = 0;
