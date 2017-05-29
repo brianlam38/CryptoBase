@@ -203,34 +203,36 @@ function renderInstructions() {
 
     // render instructions text
     instr_context.fillStyle = "white";
-    instr_context.font = "lighter 15px Verdana";
-    instr_context.fillText("INSTRUCTIONS:", 335, 110);
+    instr_context.font = "lighter 20px Verdana";
+    instr_context.fillText("INSTRUCTIONS", 335, 40);
 
     // render question
-    instr_context.fillText("1. Read the question:", 120, 165);
+    instr_context.fillStyle = "white";
+    instr_context.font = "lighter 15px Verdana";
+    instr_context.fillText("1. Read the question:", 120, 115);
     // render question rect
     instr_context.fillStyle = "#2A5DB0";
-    instr_context.fillRect(120, 185, 420, 40);
+    instr_context.fillRect(120, 135, 420, 40);
     instr_context.lineWidth = 2;
     instr_context.stroke();
     // render question text
     instr_context.fillStyle = "white";
     instr_context.font = "lighter 15px Verdana";
-    instr_context.fillText(exampleQn, 150, 210);
+    instr_context.fillText(exampleQn, 150, 160);
 
     // render question instruction
-    instr_context.fillText("2. Look at the                     text", 120, 270);
+    instr_context.fillText("2. Look at the                     text", 120, 220);
     instr_context.fillStyle = "red";
     instr_context.font = "bold 15px Verdana";
-    instr_context.fillText("enciphered", 235, 270);
+    instr_context.fillText("enciphered", 235, 220);
     // render decryption
     instr_context.lineWidth = 1;
     instr_context.strokeStyle = "#7C7E7B";
     instr_context.fillStyle = "red";
     instr_context.font = "bold 15px Verdana";
     var len = exampleEncr.length;
-    var rectX = 125, rectY = 310;
-    var charX = 130, charY = 300;
+    var rectX = 125, rectY = 260;
+    var charX = 130, charY = 250;
     for (var i = 0; i < len; i++) {
         // render encrypted text
         instr_context.fillText(exampleEncr.charAt(i), charX, charY);
@@ -244,9 +246,15 @@ function renderInstructions() {
     // render answer
     instr_context.fillStyle = "white";
     instr_context.font = "lighter 15px Verdana";
-    instr_context.fillText("3. Click to select a box + press a key to enter a character in the box", 120, 390);
+    instr_context.fillText("3. Click to                    + press a key to enter a char in the box.", 120, 340);
+    instr_context.fillStyle = "yellow";
+    instr_context.fillText("             select a box", 135, 340);
 
-    instr_context.drawImage(base_image, 113, 410, 198, 80);
+    instr_context.drawImage(base_image, 113, 350, 198, 80);
+
+    // render decrypt button
+    instr_context.fillStyle = "white";
+    instr_context.fillText("4. Press the DECRYPT button to check your answer.", 120, 460);
 
     // render back to menu btn
     instr_context.fillStyle = "red";
