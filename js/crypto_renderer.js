@@ -13,11 +13,13 @@
 var main_canvas = document.getElementById("menu");
 var str_canvas = document.getElementById("str_canvas");
 var gameOver_canvas = document.getElementById("game_over");
+var instr_canvas = document.getElementById("instructions");
 
 // create canvas ctx
 var context = main_canvas.getContext("2d");
 var str_context = str_canvas.getContext("2d");
 var over_context = gameOver_canvas.getContext("2d");
+var instr_context = instr_canvas.getContext("2d");
 
 // load image files
 mainImage = new Image();
@@ -44,9 +46,10 @@ function render() {
         goToMenu();
     } else {
         // set string canvas as top layer
-        document.getElementById('game_over').style.zIndex = -1;
+        document.getElementById('game_over').style.zIndex = 0;
         document.getElementById('menu').style.zIndex = 0;
         document.getElementById('str_canvas').style.zIndex = 1;
+        document.getElementById('instructions').style.zIndex = 0;
 
         // perform string encryption, rendering and initialise box array
         if (!encryptComplete && gameMode == "EASY") {
@@ -82,8 +85,9 @@ function render() {
             // set gameState = game over
             gameState = 3;
             // set game over canvas as top layer
-            document.getElementById('game_over').style.zIndex = 2;
-            document.getElementById('menu').style.zIndex = 1;
+            document.getElementById('game_over').style.zIndex = 1;
+            document.getElementById('instructions').style.zIndex = 0;
+            document.getElementById('menu').style.zIndex = 0;
             document.getElementById('str_canvas').style.zIndex = 0;
             // clear data
             clearCanvas();
@@ -94,8 +98,6 @@ function render() {
             requestAnimationFrame(render);
         }
     }
-
-
 }
 
 /**
@@ -108,6 +110,12 @@ function render() {
 // Renders the main menu text / objects
 function renderMenu() {
     console.log("=================== MAIN MENU =================== ");
+
+    // set menu canvas as top layer
+    document.getElementById('instructions').style.zIndex = 0;
+    document.getElementById('menu').style.zIndex = 1;
+    document.getElementById('str_canvas').style.zIndex = 0;
+    document.getElementById('game_over').style.zIndex = 0;
 
     // draw background layer
     context.drawImage(mainImage, 0, 0, 800, 600);
@@ -153,8 +161,9 @@ function goToMenu() {
     // set gameState = menu
     gameState = 0;
     // set menu canvas as top layer
-    document.getElementById('menu').style.zIndex = 2;
-    document.getElementById('str_canvas').style.zIndex = 1;
+    document.getElementById('instructions').style.zIndex = 0;
+    document.getElementById('menu').style.zIndex = 1;
+    document.getElementById('str_canvas').style.zIndex = 0;
     document.getElementById('game_over').style.zIndex = 0;
 
     // clear previous render
@@ -172,6 +181,12 @@ function goToMenu() {
 
 function renderInstructions() {
     console.log("=================== INSTRUCTIONS MENU =================== ");
+
+    // set instructions canvas as top
+    document.getElementById('instructions').style.zIndex = 1;
+    document.getElementById('menu').style.zIndex = 0;
+    document.getElementById('str_canvas').style.zIndex = 0;
+    document.getElementById('game_over').style.zIndex = 0;
 
     // draw background layer
     context.drawImage(mainImage, 0, 0, 800, 600);

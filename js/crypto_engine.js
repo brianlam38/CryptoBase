@@ -230,9 +230,14 @@ main_canvas.addEventListener('click', function(event) {
     } else {
         console.log('clicked outside instructions button');
     }
-    // clicked instructions button
+}, false);
+
+// Instructions layer event listeners
+instr_canvas.addEventListener('click', function(event) {
+    var mousePos = getMousePos(main_canvas, event);
+    // clicked back to main button
     if (isInside(mousePos, instructStartBtn) && (gameState == 1)) {
-        console.log("=== BACK TO MAIN MENU ===");
+        console.log("=== SHOWING INSTRUCTIONS ===");
         clickedMainMenu = false;
         gameState = 0;
         renderMenu();
