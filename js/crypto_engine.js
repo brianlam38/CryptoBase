@@ -91,6 +91,7 @@ function resetData() {
     timeLimit = defaultTimeLimit;
     encryptComplete = false;
     encrypted = "";
+    userString = "";
     boxArray = [];
 }
 
@@ -200,14 +201,25 @@ function initBoxArray(numBoxes) {
 // Main menu layer event listeners
 main_canvas.addEventListener('click', function(event) {
     var mousePos = getMousePos(main_canvas, event);
-    // clicked start game button
+    // clicked easy mode
     if (isInside(mousePos, easyBtn) && (gameState == 0)) {
-        console.log("3. Clicked start game");
+        console.log("3. STARTING EASY GAME");
         clickedMainMenu = false;
         gameState = 1;
+        gameMode = "EASY";
         render();
     } else {
-        console.log('clicked outside start game');
+        console.log('clicked outside easy button');
+    }
+    // clicked hard mode
+    if (isInside(mousePos, hardBtn) && (gameState == 0)) {
+        console.log("3. STARTING HARD GAME");
+        clickedMainMenu = false;
+        gameState = 1;
+        gameMode = "HARD";
+        render();
+    } else {
+        console.log('clicked outside hard button');
     }
 }, false);
 
@@ -278,7 +290,9 @@ gameOver_canvas.addEventListener('click', function(event) {
     // clicked replay game button
     if (isInside(mousePos, replayBtn)) {
         console.log("<< CLICKED REPLAY GAME >>");
+        gameWon = false;
         gameState = 1;
+        resetData();
         render();
     } else {
         console.log('clicked outside replay game');

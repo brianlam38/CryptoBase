@@ -49,10 +49,17 @@ function render() {
         document.getElementById('str_canvas').style.zIndex = 1;
 
         // perform string encryption, rendering and initialise box array
-        if (!encryptComplete) {
-            console.log("=================== ENCRYPTION FUNCTIONS =================== ");
+        if (!encryptComplete && gameMode == "EASY") {
+            console.log("=================== CAESAR ENCRYPTION =================== ");
             initQuestions();
             encrypted = caesarEncrypt();
+            renderString(encrypted);
+            initBoxArray(selectedPlaintext.length);
+            initUserString();
+        } else if (!encryptComplete && gameMode == "HARD") {
+            console.log("=================== POLYALPHABETIC ENCRYPTION =================== ");
+            initQuestions();
+            encrypted = vigenereEncrypt();
             renderString(encrypted);
             initBoxArray(selectedPlaintext.length);
             initUserString();
@@ -248,8 +255,8 @@ function renderString(encrypted) {
 // Renders remaining time graphic
 function renderTimeRemaining() {
     // render remaining time graphic
-    if (timeLimit < 700 && (timeLimit%2 == 0.1)) {
-        str_context.fillStyle = "red";
+    if (gameMode == "EASY" && timeLimit < 700) {
+        str_context.fillStyle = "green";
         str_context.fillRect(40, 170, timeLimit, 80);
         str_context.lineWidth = 2;
         str_context.stroke();

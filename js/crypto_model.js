@@ -27,7 +27,7 @@ var userString = "";
 // 0 = main menu, 1 = game running, 2 = decryption attempt
 var gameState = 0;
 var startTime = 0;
-var defaultTimeLimit = 100;
+var defaultTimeLimit = 700;
 var timeLimit = defaultTimeLimit;
 var clickedMainMenu = false;
 var gameMode = "";
