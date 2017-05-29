@@ -52,15 +52,15 @@ var hardBtn = {
 };
 // Instructions button
 var instructionsBtn = {
-    x: 320,
+    x: 330,
     y: 480,
     width: 155,
     height: 40
 };
 // Instructions start button
 var instructStartBtn = {
-    x: 320,
-    y: 500,
+    x: 335,
+    y: 540,
     width: 150,
     height: 40
 };

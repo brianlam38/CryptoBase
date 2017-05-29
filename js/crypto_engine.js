@@ -207,6 +207,7 @@ main_canvas.addEventListener('click', function(event) {
         clickedMainMenu = false;
         gameState = 1;
         gameMode = "EASY";
+        clearCanvas();
         render();
     } else {
         console.log('clicked outside easy button');
@@ -217,6 +218,7 @@ main_canvas.addEventListener('click', function(event) {
         clickedMainMenu = false;
         gameState = 1;
         gameMode = "HARD";
+        clearCanvas();
         render();
     } else {
         console.log('clicked outside hard button');
@@ -240,6 +242,7 @@ instr_canvas.addEventListener('click', function(event) {
         console.log("=== SHOWING INSTRUCTIONS ===");
         clickedMainMenu = false;
         gameState = 0;
+        clearCanvas();
         renderMenu();
     } else {
         console.log('clicked outside instructions button');

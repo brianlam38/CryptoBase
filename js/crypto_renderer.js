@@ -15,6 +15,7 @@ var str_canvas = document.getElementById("str_canvas");
 var gameOver_canvas = document.getElementById("game_over");
 var instr_canvas = document.getElementById("instructions");
 
+
 // create canvas ctx
 var context = main_canvas.getContext("2d");
 var str_context = str_canvas.getContext("2d");
@@ -26,6 +27,11 @@ mainImage = new Image();
 mainImage.ready = false;
 mainImage.onload = checkReady;  // .onload executes a script after page loads
 mainImage.src = "/CryptoBase/images/canvas1.png";
+
+base_image = new Image();
+base_image.ready = false;
+base_image.onload = checkReady;
+base_image.src = '/CryptoBase/images/instr.png';
 
 // Performs ready check for image assets then runs main render loop
 function checkReady() {
@@ -182,6 +188,10 @@ function goToMenu() {
 function renderInstructions() {
     console.log("=================== INSTRUCTIONS MENU =================== ");
 
+    var exampleQn = "A _____ is a secret or disguised way of writing.";
+    var exampleAns = "CIPHER";
+    var exampleEncr = "DJQIFS";
+
     // set instructions canvas as top
     document.getElementById('instructions').style.zIndex = 1;
     document.getElementById('menu').style.zIndex = 0;
@@ -189,22 +199,63 @@ function renderInstructions() {
     document.getElementById('game_over').style.zIndex = 0;
 
     // draw background layer
-    context.drawImage(mainImage, 0, 0, 800, 600);
+    instr_context.drawImage(mainImage, 0, 0, 800, 600);
 
-    // render menu text
-    context.fillStyle = "white";
-    context.font = "lighter 16px Verdana";
-    context.fillText("INSTRUCTIONS:", 335, 170);
+    // render instructions text
+    instr_context.fillStyle = "white";
+    instr_context.font = "lighter 15px Verdana";
+    instr_context.fillText("INSTRUCTIONS:", 335, 110);
 
+    // render question
+    instr_context.fillText("1. Read the question:", 120, 165);
+    // render question rect
+    instr_context.fillStyle = "#2A5DB0";
+    instr_context.fillRect(120, 185, 420, 40);
+    instr_context.lineWidth = 2;
+    instr_context.stroke();
+    // render question text
+    instr_context.fillStyle = "white";
+    instr_context.font = "lighter 15px Verdana";
+    instr_context.fillText(exampleQn, 150, 210);
+
+    // render question instruction
+    instr_context.fillText("2. Look at the                     text", 120, 270);
+    instr_context.fillStyle = "red";
+    instr_context.font = "bold 15px Verdana";
+    instr_context.fillText("enciphered", 235, 270);
+    // render decryption
+    instr_context.lineWidth = 1;
+    instr_context.strokeStyle = "#7C7E7B";
+    instr_context.fillStyle = "red";
+    instr_context.font = "bold 15px Verdana";
+    var len = exampleEncr.length;
+    var rectX = 125, rectY = 310;
+    var charX = 130, charY = 300;
+    for (var i = 0; i < len; i++) {
+        // render encrypted text
+        instr_context.fillText(exampleEncr.charAt(i), charX, charY);
+        // render char box
+        instr_context.rect(rectX, rectY, boxW, boxH);
+        instr_context.stroke();
+        rectX += 30;
+        charX += 30;
+    }
+
+    // render answer
+    instr_context.fillStyle = "white";
+    instr_context.font = "lighter 15px Verdana";
+    instr_context.fillText("3. Click to select a box + press a key to enter a character in the box", 120, 390);
+
+    instr_context.drawImage(base_image, 113, 410, 198, 80);
 
     // render back to menu btn
-    context.fillStyle = "red";
-    context.fillRect(instructStartBtn.x, instructStartBtn.y, instructStartBtn.width, instructStartBtn.height);
-    context.lineWidth = 2;
+    instr_context.fillStyle = "red";
+    instr_context.fillRect(instructStartBtn.x, instructStartBtn.y, instructStartBtn.width, instructStartBtn.height);
+    instr_context.lineWidth = 2;
     // render back to menu btn text
-    context.fillStyle = "white";
-    context.font = "lighter 16px Verdana";
-    context.fillText("BACK TO MENU", instructStartBtn.x+12, 525);
+    instr_context.fillStyle = "white";
+    instr_context.font = "lighter 16px Verdana";
+    instr_context.fillText("BACK TO MENU", instructStartBtn.x+12, 565);
 }
 
 /**
@@ -378,7 +429,7 @@ function renderGameOver() {
         over_context.font = "lighter 22px Verdana";
         over_context.fillText("YOU WIN!", 330, 250);
         over_context.fillText("DECRYPTION SUCCESSFUL.", 240, 330);
-        over_context.fillText("PLAY AGAIN", 323, 426);
+        over_context.fillText("PLAY AGAIN", 323, 427);
     }
 }
 
