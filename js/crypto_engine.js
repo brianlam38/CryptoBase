@@ -316,6 +316,7 @@ gameOver_canvas.addEventListener('click', function(event) {
         gameWon = false;
         gameState = 1;
         resetData();
+        clearCanvas();
         render();
     } else {
         console.log('clicked outside replay game');

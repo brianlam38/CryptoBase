@@ -40,17 +40,17 @@ function checkReady() {
 function render() {
     console.log("=================== WRAPPER FUNCTION =================== ");
 
+    // set string canvas as top layer
+    document.getElementById('game_over').style.zIndex = 0;
+    document.getElementById('menu').style.zIndex = 0;
+    document.getElementById('str_canvas').style.zIndex = 1;
+    document.getElementById('instructions').style.zIndex = 0;
+
     // track if main menu btn has been clicked
     if (clickedMainMenu == true) {
         cancelAnimationFrame(render);
         goToMenu();
     } else {
-        // set string canvas as top layer
-        document.getElementById('game_over').style.zIndex = 0;
-        document.getElementById('menu').style.zIndex = 0;
-        document.getElementById('str_canvas').style.zIndex = 1;
-        document.getElementById('instructions').style.zIndex = 0;
-
         // perform string encryption, rendering and initialise box array
         if (!encryptComplete && gameMode == "EASY") {
             console.log("=================== CAESAR ENCRYPTION =================== ");
@@ -390,9 +390,14 @@ function renderGameOver() {
 
 // Clear all layers and resets paths to prevent overlap
 function clearCanvas() {
-    str_context.clearRect(0, 0, main_canvas.width, main_canvas.height);
     context.clearRect(0, 0, main_canvas.width, main_canvas.height);
-    str_context.beginPath();
+    instr_context.clearRect(0, 0, main_canvas.width, main_canvas.height);
+    str_context.clearRect(0, 0, main_canvas.width, main_canvas.height);
+    over_context.clearRect(0, 0, main_canvas.width, main_canvas.height);
+
     context.beginPath();
+    instr_context.beginPath();
+    str_context.beginPath();
+    over_context.beginPath();
 }
 
