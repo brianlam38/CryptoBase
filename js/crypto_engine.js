@@ -221,6 +221,24 @@ main_canvas.addEventListener('click', function(event) {
     } else {
         console.log('clicked outside hard button');
     }
+    // clicked instructions button
+    if (isInside(mousePos, instructionsBtn) && (gameState == 0)) {
+        console.log("=== SHOWING INSTRUCTIONS ===");
+        clickedMainMenu = false;
+        gameState = 1;
+        renderInstructions();
+    } else {
+        console.log('clicked outside instructions button');
+    }
+    // clicked instructions button
+    if (isInside(mousePos, instructStartBtn) && (gameState == 1)) {
+        console.log("=== BACK TO MAIN MENU ===");
+        clickedMainMenu = false;
+        gameState = 0;
+        renderMenu();
+    } else {
+        console.log('clicked outside instructions button');
+    }
 }, false);
 
 // String layer event listeners

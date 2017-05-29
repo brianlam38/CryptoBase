@@ -166,6 +166,33 @@ function goToMenu() {
 }
 
 /**
+ * INSTRUCTION RENDER FUNCTIONS
+ *
+ */
+
+function renderInstructions() {
+    console.log("=================== INSTRUCTIONS MENU =================== ");
+
+    // draw background layer
+    context.drawImage(mainImage, 0, 0, 800, 600);
+
+    // render menu text
+    context.fillStyle = "white";
+    context.font = "lighter 16px Verdana";
+    context.fillText("INSTRUCTIONS:", 335, 170);
+
+
+    // render back to menu btn
+    context.fillStyle = "red";
+    context.fillRect(instructStartBtn.x, instructStartBtn.y, instructStartBtn.width, instructStartBtn.height);
+    context.lineWidth = 2;
+    // render back to menu btn text
+    context.fillStyle = "white";
+    context.font = "lighter 16px Verdana";
+    context.fillText("BACK TO MENU", instructStartBtn.x+12, 525);
+}
+
+/**
  * IN-GAME RENDER FUNCTIONS
  *
  * renderGame() -> Main in-game render function

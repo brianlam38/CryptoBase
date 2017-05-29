@@ -57,6 +57,13 @@ var instructionsBtn = {
     width: 155,
     height: 40
 };
+// Instructions start button
+var instructStartBtn = {
+    x: 320,
+    y: 500,
+    width: 150,
+    height: 40
+};
 
 // Menu button pos + sizing
 var menuBtn = {
